@@ -1,22 +1,37 @@
 {
   "expo": {
-    "name": "food-scanner",
-    "slug": "food-scanner",
+    "name": "ecoo-ride-ph",
+    "slug": "ecoo-ride-ph",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "foodscanner",
+    "scheme": "ecoorideph",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
+    "splash": {
+      "resizeMode": "cover",  
+      "backgroundColor": "#ffffff"
+    },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "statusBar": {
+        "hidden": true    
+      },
+      "config": {
+        "googleMapsApiKey": "AIzaSyCvbyn62mH6SWGz1QnrCyQZ7UnJ9SNCYII"
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyCvbyn62mH6SWGz1QnrCyQZ7UnJ9SNCYII"
+        }
+      }
     },
     "web": {
       "bundler": "metro",

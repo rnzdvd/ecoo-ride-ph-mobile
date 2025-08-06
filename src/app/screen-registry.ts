@@ -1,0 +1,16 @@
+export const ScreenNames = {
+  LoginScreen: "LoginScreen",
+  SplashScreen: "SplashScreen",
+  HomeScreen: "HomeScreen",
+  Drawer: "Drawer",
+  Base: "Base",
+  ScanScreen: "ScanScreen",
+  RideInstructionsScreen: "RideInstructionsScreen",
+  RideScreen: "RideScreen",
+  RegistrationPhaseOne: "RegistrationPhaseOneScreen",
+  RegistrationPhaseTwo: "RegistrationPhaseTwoScreen",
+  RegistrationPhaseThree: "RegistrationPhaseThreeScreen",
+  BalanceScreen: "BalanceScreen",
+  TopUpScreen: "TopUpScreen",
+  HowToRideScreen: "HowToRideScreen",
+};
