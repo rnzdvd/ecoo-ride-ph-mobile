@@ -15,6 +15,7 @@ import RegistrationPhaseOneScreen from "../auth/screens/registration-phase-one.s
 import RegistrationPhaseThreeScreen from "../auth/screens/registration-phase-three.screen";
 import RegistrationPhaseTwoScreen from "../auth/screens/registration-phase-two.screen";
 import SplashScreen from "../auth/screens/splash.screen";
+import PushNotificationView from "../common/ui/push-notification/push-notification.view";
 import HomeScreen from "../home/screens/home.screen";
 import ScanScreen from "../home/screens/scan.screen";
 import DrawerContainer from "../home/ui/drawer/drawer.container";
@@ -35,7 +36,11 @@ const Navigator: React.FC = () => {
     <NavigationContainer ref={navigationRef}>
       <Observer>
         {() => {
-          return <BaseStack />;
+          return (
+            <PushNotificationView>
+              <BaseStack />
+            </PushNotificationView>
+          );
         }}
       </Observer>
     </NavigationContainer>

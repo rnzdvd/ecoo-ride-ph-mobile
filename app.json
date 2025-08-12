@@ -8,14 +8,15 @@
     "scheme": "ecoorideph",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
+    "projectId": "5143db7d-87f5-4c01-8f07-57955380006c",
     "splash": {
-      "resizeMode": "cover",  
+      "resizeMode": "cover",
       "backgroundColor": "#ffffff"
     },
     "ios": {
       "supportsTablet": true,
       "statusBar": {
-        "hidden": true    
+        "hidden": true
       },
       "config": {
         "googleMapsApiKey": "AIzaSyCvbyn62mH6SWGz1QnrCyQZ7UnJ9SNCYII"
@@ -52,6 +53,13 @@
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "5143db7d-87f5-4c01-8f07-57955380006c"
+      }
+    },
+    "owner": "rnzdvd0920"
   }
 }

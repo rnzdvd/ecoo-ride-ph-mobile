@@ -1,4 +1,5 @@
 import { useFonts } from "expo-font";
+import * as Notifications from "expo-notifications";
 import { configure } from "mobx";
 import React from "react";
 import { StyleSheet } from "react-native";
@@ -20,6 +21,15 @@ enableFreeze();
 
 configure({
   enforceActions: "never",
+});
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldPlaySound: false,
+    shouldSetBadge: false,
+    shouldShowBanner: true,
+    shouldShowList: true,
+  }),
 });
 
 const firstStore = getStore();
