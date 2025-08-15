@@ -3,9 +3,11 @@ import React from "react";
 import { StyleSheet, View } from "react-native";
 import { Button, Icon, Text } from "react-native-paper";
 import { Shadow } from "react-native-shadow-2";
+import BalanceEntity from "../../entities/balance.entity";
 
 interface IBalanceViewModel {
   onNavigateToTopUp: () => void;
+  balanceEntity: BalanceEntity;
 }
 
 const BalanceView: React.FC<IBalanceViewModel> = (props) => {
@@ -46,7 +48,7 @@ const BalanceView: React.FC<IBalanceViewModel> = (props) => {
             <Icon source="wallet" size={35} color={Colors.primaryColor} />
             <View style={{ marginLeft: 10 }}>
               <Text style={{ fontWeight: "bold", fontSize: 16 }}>
-                Balance: 0.00 PHP
+                Balance: {props.balanceEntity.balance} PHP
               </Text>
               <Text style={{ fontSize: 12, color: Colors.semiDarkGrey }}>
                 Top up your account.

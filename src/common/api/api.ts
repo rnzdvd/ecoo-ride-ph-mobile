@@ -1,5 +1,6 @@
+import AuthRepository from "@/src/auth/interfaces/gateways/auth.repository";
 import { ApiResponse, ApisauceInstance, create } from "apisauce";
-import { AxiosRequestConfig } from "axios";
+import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { IStore } from "../../app/store";
 import { ApiConfig, DEFAULT_API_CONFIG } from "./api-config";
 
@@ -8,16 +9,14 @@ export interface IApi {
   config: ApiConfig;
 }
 
-export class APIError extends Error {
-  response: any;
-}
-
 export class Api implements IApi {
   apiSauce: ApisauceInstance;
   config: ApiConfig;
+  authRepo: AuthRepository;
 
   constructor(store: IStore) {
     this.config = DEFAULT_API_CONFIG;
+    this.authRepo = new AuthRepository(store);
 
     this.apiSauce = create({
       baseURL: this.config.url,
@@ -25,8 +24,19 @@ export class Api implements IApi {
       headers: this.config.headers,
     });
 
+    this.apiSauce.axiosInstance.interceptors.request.use(
+      async (config) => {
+        // const user = this.authRepo.getUser();
+        // config.headers.Authorization = `Bearer ${user.accessToken}`;
+        return config;
+      },
+      (error) => {
+        return Promise.reject(error);
+      }
+    );
+
     this.apiSauce.axiosInstance.interceptors.response.use(
-      function (response) {
+      function (response: AxiosResponse<any, any>) {
         // Ensure the response data exists
         if (!response.data) {
           response.data = {};
@@ -41,13 +51,23 @@ export class Api implements IApi {
         return response;
       },
       function (error) {
-        // Handle error response structure
-        const formattedError = {
-          status_code: error.response ? error.response.status : 500,
-          data: error.response ? error.response.data : {},
+        return {
+          data: {
+            status_code: error.response?.status ?? 500,
+            data: error.response?.data ?? {},
+          },
         };
+      }
+    );
 
-        return Promise.reject(formattedError);
+    this.apiSauce.axiosInstance.interceptors.request.use(
+      async (config) => {
+        const user = this.authRepo.getAuthUser();
+        config.headers.Authorization = `Bearer ${user.accessToken}`;
+        return config;
+      },
+      (error) => {
+        return Promise.reject(error);
       }
     );
   }

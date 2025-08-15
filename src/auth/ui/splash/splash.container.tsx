@@ -1,23 +1,27 @@
+import { StoreContext } from "@/src/app/store";
 import { registerForPushNotificationsAsync } from "@/src/common/notification-services";
 import { Observer } from "mobx-react-lite";
 import React from "react";
+import AuthController from "../../interfaces/controllers/auth.controller";
 import SplashView from "./splash.view";
 
 const SplashContainer: React.FC<{
   onNavigateToHome: () => void;
 }> = (props) => {
+  const store = React.useContext(StoreContext);
+  const controller = new AuthController(store);
+
   React.useEffect(() => {
     callPushNotifications();
-    const timeoutId = setTimeout(props.onNavigateToHome, 2000);
+    controller.checkLoginStatus();
+    const timeoutId = setTimeout(() => {
+      props.onNavigateToHome();
+    }, 2000);
     return () => clearTimeout(timeoutId);
   });
 
   const callPushNotifications = async (): Promise<void> => {
-    const token = await registerForPushNotificationsAsync();
-    if (token) {
-      console.log("Push token from splash:", token);
-      // Save/send token to your backend here if needed
-    }
+    await registerForPushNotificationsAsync();
   };
 
   return (

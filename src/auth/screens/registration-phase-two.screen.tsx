@@ -14,9 +14,10 @@ const RegistrationPhaseTwoScreen: React.FC<IScreenContainer> = ({
       statusBarBg="black"
     >
       <RegistrationPhaseTwoContainer
-        onOtpConfirmed={() =>
+        onNavigateToRegistration={() =>
           navigation.navigate(ScreenNames.RegistrationPhaseThree)
         }
+        onNavigateToHome={() => navigation.navigate(ScreenNames.Drawer)}
       />
     </AppScreen>
   );

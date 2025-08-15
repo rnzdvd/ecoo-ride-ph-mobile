@@ -8,9 +8,10 @@ import {
   ViewStyle,
 } from "react-native";
 import { Button, Text } from "react-native-paper";
+import BalanceEntity from "../../entities/balance.entity";
 
 interface ITopUpViewModel {
-  optional?: any;
+  balanceEntity: BalanceEntity;
 }
 
 const TopUpView: React.FC<ITopUpViewModel> = (props) => {
@@ -30,7 +31,17 @@ const TopUpView: React.FC<ITopUpViewModel> = (props) => {
   return (
     <View style={styles.container}>
       <View style={styles.balanceContainer}>
-        <Text style={styles.balanceText}>0.00 PHP</Text>
+        <View>
+          <Text style={styles.balanceText}>
+            {props.balanceEntity.balance} PHP
+          </Text>
+          <Text>Balance</Text>
+        </View>
+
+        <View>
+          <Text style={styles.balanceText}>{props.balanceEntity.debt} PHP</Text>
+          <Text>Debt</Text>
+        </View>
       </View>
 
       <View style={{ padding: 20, marginTop: 40, flex: 1 }}>
@@ -99,6 +110,9 @@ const styles = StyleSheet.create({
   balanceContainer: {
     alignItems: "center",
     marginTop: 40,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginHorizontal: 25,
   },
   balanceText: {
     fontWeight: "bold",

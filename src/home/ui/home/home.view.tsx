@@ -3,7 +3,7 @@ import * as ImagePicker from "expo-image-picker";
 import * as Location from "expo-location";
 import React, { useState } from "react";
 import { Dimensions, StyleSheet, View } from "react-native";
-import MapView from "react-native-maps";
+import MapView, { Callout, Marker } from "react-native-maps";
 import {
   ActivityIndicator,
   Button,
@@ -11,12 +11,14 @@ import {
   IconButton,
   Text,
 } from "react-native-paper";
+import ScooterEntity from "../../entities/scooter.entity";
 
 interface IHomeViewModel {
   onOpenDrawer: () => void;
   onScanQR: () => void;
   onGetStarted: () => void;
   isLoggedIn: boolean;
+  scooters: ScooterEntity[];
 }
 
 const HomeView: React.FC<IHomeViewModel> = (props) => {
@@ -69,10 +71,28 @@ const HomeView: React.FC<IHomeViewModel> = (props) => {
           longitudeDelta: 0.0421,
         }}
       >
-        {/* <Marker
-          coordinate={{ latitude: 7.1907, longitude: 125.4553 }}
-          title="Davao City"
-        /> */}
+        {props.scooters.map((scooter) => {
+          return (
+            <Marker
+              key={scooter.id}
+              coordinate={{
+                latitude: scooter.lat,
+                longitude: scooter.lng,
+              }}
+            >
+              <Icon source={"scooter"} size={25} color={Colors.primaryColor} />
+
+              <Callout tooltip>
+                <View style={styles.calloutContainer}>
+                  <Text style={styles.title}>{scooter.name}</Text>
+                  <Text style={styles.subtitle}>
+                    Battery: {scooter.battery}%
+                  </Text>
+                </View>
+              </Callout>
+            </Marker>
+          );
+        })}
       </MapView>
 
       <View style={styles.menuContainer}>
@@ -152,5 +172,23 @@ const styles = StyleSheet.create({
   },
   scanContainer: {
     flexDirection: "row",
+  },
+  calloutContainer: {
+    backgroundColor: "white",
+    padding: 8,
+    borderRadius: 10,
+    borderColor: "#ccc",
+    borderWidth: 1,
+    minWidth: 120,
+    alignItems: "center",
+  },
+  title: {
+    fontWeight: "bold",
+    fontSize: 14,
+    marginBottom: 4,
+  },
+  subtitle: {
+    fontSize: 12,
+    color: "#555",
   },
 });

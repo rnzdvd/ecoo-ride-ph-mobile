@@ -1,3 +1,4 @@
+import BalanceEntity from "@/src/account/entities/balance.entity";
 import { Colors } from "@/src/common/colors";
 import React from "react";
 import {
@@ -9,9 +10,12 @@ import {
 } from "react-native";
 import Modal from "react-native-modal";
 import { Button, Icon, Text } from "react-native-paper";
+import ScooterEntity from "../../entities/scooter.entity";
 
 interface IScooterDetailsViewModel {
   isVisible: boolean;
+  balanceEntity: BalanceEntity;
+  scooterEntity: ScooterEntity;
   onModalClose: () => void;
   onContinue: () => void;
 }
@@ -32,9 +36,17 @@ const ScooterDetailsView: React.FC<IScooterDetailsViewModel> = (props) => {
 
   return (
     <Modal
+      style={{
+        justifyContent: "flex-end",
+        margin: 0,
+      }}
+      propagateSwipe
       isVisible={props.isVisible}
       onBackdropPress={props.onModalClose}
       onBackButtonPress={props.onModalClose}
+      onSwipeComplete={props.onModalClose}
+      swipeThreshold={100}
+      swipeDirection="down"
     >
       <View style={styles.container}>
         <View style={styles.bikeInfoContainer}>
@@ -43,10 +55,12 @@ const ScooterDetailsView: React.FC<IScooterDetailsViewModel> = (props) => {
           </View>
 
           <View style={styles.bikeInfoSubContainer}>
-            <Text style={styles.bikeNameLabel}>MVR12333</Text>
+            <Text style={styles.bikeNameLabel}>{props.scooterEntity.name}</Text>
             <View style={styles.bikeBatteryContainer}>
               <Icon source={"battery-high"} size={15} />
-              <Text style={styles.bikeBatteryLabel}>80%</Text>
+              <Text style={styles.bikeBatteryLabel}>
+                {props.scooterEntity.battery}%
+              </Text>
             </View>
           </View>
         </View>
@@ -84,7 +98,9 @@ const ScooterDetailsView: React.FC<IScooterDetailsViewModel> = (props) => {
         <View style={styles.walletContainer}>
           <Icon source="wallet" size={35} color={Colors.primaryColor} />
           <View style={{ marginLeft: 10 }}>
-            <Text style={styles.walletLabel}>200.00 PHP</Text>
+            <Text style={styles.walletLabel}>
+              {props.balanceEntity.balance} PHP
+            </Text>
             <Text style={{ fontSize: 10, color: Colors.semiDarkGrey }}>
               Current Balance
             </Text>

@@ -1,3 +1,4 @@
+import AuthUserEntity from "@/src/auth/entities/auth-user.entity";
 import { Colors } from "@/src/common/colors";
 import { DrawerContentScrollView } from "@react-navigation/drawer";
 import React from "react";
@@ -7,8 +8,10 @@ import { Shadow } from "react-native-shadow-2";
 
 const DrawerView: React.FC<{
   isLoggedIn: boolean;
+  authUser: AuthUserEntity;
   onNavigateToRegistration: () => void;
   onNavigateToBalance: () => void;
+  onUserLogout: () => void;
 }> = (props) => (
   <DrawerContentScrollView>
     {!props.isLoggedIn ? (
@@ -27,7 +30,7 @@ const DrawerView: React.FC<{
         <View style={styles.profileContainer}>
           <Avatar.Icon size={50} icon={"account"} />
           <View style={styles.profileSubContainer}>
-            <Text style={styles.name}>John Doe</Text>
+            <Text style={styles.name}>{props.authUser.fullName}</Text>
             <Text style={styles.viewProfileText}>View Profile</Text>
           </View>
         </View>
@@ -38,7 +41,9 @@ const DrawerView: React.FC<{
               <Icon source="scooter" size={30} color={Colors.primaryColor} />
             </Shadow>
             <View style={{ marginLeft: 10 }}>
-              <Text style={styles.rideInfoLabel}>0</Text>
+              <Text style={styles.rideInfoLabel}>
+                {props.authUser.totalRides}
+              </Text>
               <Text style={{ fontSize: 10, color: Colors.semiDarkGrey }}>
                 Rides
               </Text>
@@ -54,7 +59,9 @@ const DrawerView: React.FC<{
               />
             </Shadow>
             <View style={{ marginLeft: 10 }}>
-              <Text style={styles.rideInfoLabel}>0km</Text>
+              <Text style={styles.rideInfoLabel}>
+                {props.authUser.totalDistance}km
+              </Text>
               <Text style={{ fontSize: 10, color: Colors.semiDarkGrey }}>
                 Distance
               </Text>
@@ -65,13 +72,26 @@ const DrawerView: React.FC<{
     )}
 
     <Drawer.Section>
-      <Drawer.Item
-        label="Payments"
-        icon="cash"
-        onPress={props.onNavigateToBalance}
-      />
-      <Drawer.Item label="Ride History" icon="history" />
-      <Drawer.Item label="Help" icon="question" />
+      {props.isLoggedIn && (
+        <>
+          <Drawer.Item
+            label="Payments"
+            icon="cash"
+            onPress={props.onNavigateToBalance}
+          />
+
+          <Drawer.Item label="Ride History" icon="history" />
+        </>
+      )}
+      <Drawer.Item label="Help" icon="cloud-question" />
+      {props.isLoggedIn && (
+        <Drawer.Item
+          theme={{ colors: { onSurfaceVariant: "#e11d48" } }}
+          label="Logout"
+          icon={"logout"}
+          onPress={props.onUserLogout}
+        />
+      )}
     </Drawer.Section>
   </DrawerContentScrollView>
 );

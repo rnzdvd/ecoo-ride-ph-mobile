@@ -1,9 +1,14 @@
 import { StoreContext } from "@/src/app/store";
+import AppLoaderView from "@/src/common/ui/app-loader/app-loader.view";
 import { Observer } from "mobx-react-lite";
 import React from "react";
+import { View } from "react-native";
+import Toast from "react-native-toast-message";
 import AuthController from "../../interfaces/controllers/auth.controller";
 import AuthPresenter from "../../interfaces/presenters/auth.presenter";
-import RegistrationPhaseThreeView from "./registration-phase-three.view";
+import RegistrationPhaseThreeView, {
+  IRegistrationFormModel,
+} from "./registration-phase-three.view";
 
 const RegistrationPhaseThreeContainer: React.FC<{
   onNavigateToHome: () => void;
@@ -13,18 +18,31 @@ const RegistrationPhaseThreeContainer: React.FC<{
   const controller = new AuthController(store);
   const presenter = new AuthPresenter(store);
 
-  const handleConfirm = async (): Promise<void> => {
-    await controller.registerAccount();
+  const handleConfirm = async (form: IRegistrationFormModel): Promise<void> => {
+    await controller.registerAccount(form);
 
     if (presenter.isLoggedIn()) {
       props.onNavigateToHowToRide();
+    } else {
+      Toast.show({
+        type: "error",
+        text1: presenter.getErrorMessage(),
+      });
     }
   };
 
   return (
     <Observer>
       {() => {
-        return <RegistrationPhaseThreeView onConfirm={handleConfirm} />;
+        return (
+          <View style={{ flex: 1 }}>
+            <RegistrationPhaseThreeView
+              onConfirm={handleConfirm}
+              registeredEmail={presenter.getEmailRegistered()}
+            />
+            <AppLoaderView isVisible={presenter.isLoading()} />
+          </View>
+        );
       }}
     </Observer>
   );

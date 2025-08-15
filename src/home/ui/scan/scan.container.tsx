@@ -1,4 +1,5 @@
 import { StoreContext } from "@/src/app/store";
+import AppLoaderView from "@/src/common/ui/app-loader/app-loader.view";
 import { Observer } from "mobx-react-lite";
 import React from "react";
 import { View } from "react-native";
@@ -15,23 +16,35 @@ const ScanContainer: React.FC<{
   const presenter = new HomePresenter(store);
 
   const handleScannedQR = (data: string): void => {
-    controller.setScannedQRValue(data);
+    if (!presenter.isLoading() && !presenter.getScannedQRValue()) {
+      controller.setScannedQRValue(data);
+      controller.loadScooterDetails();
+    }
+  };
+
+  const handleRemoveScannedQR = (): void => {
+    controller.setScannedQRValue("");
+  };
+
+  const handleContinue = (): void => {
+    handleRemoveScannedQR();
+    props.onNavigateToRideInstructions();
   };
 
   return (
     <Observer>
       {() => {
+        const scooter = presenter.getScooter();
         return (
           <View style={{ flex: 1 }}>
             <ScanView onScanSuccess={handleScannedQR} />
             <ScooterDetailsContainer
-              isVisible={!!presenter.getScannedQRValue()}
-              onModalClose={() => handleScannedQR("")}
-              onContinue={() => {
-                handleScannedQR("");
-                props.onNavigateToRideInstructions();
-              }}
+              scooterEntity={scooter}
+              isVisible={!!presenter.getScannedQRValue() && scooter.id !== -1}
+              onModalClose={handleRemoveScannedQR}
+              onContinue={handleContinue}
             />
+            <AppLoaderView isVisible={presenter.isLoading()} />
           </View>
         );
       }}

@@ -4,32 +4,42 @@ import { StyleSheet, View } from "react-native";
 import { Button, Text, TextInput } from "react-native-paper";
 
 interface IRegistrationPhaseOneViewModel {
-  onNavigateToOtp: () => void;
+  onRequestOtp: (email: string) => void;
 }
 
 const RegistrationPhaseOneView: React.FC<IRegistrationPhaseOneViewModel> = (
   props
-) => (
-  <View style={styles.container}>
-    <View style={styles.subContainer}>
-      <Text style={styles.titleText}>Get Started</Text>
+) => {
+  const [email, setEmail] = React.useState<string>("");
 
-      <Text style={styles.descriptionText}>
-        Please type your email address to get started
-      </Text>
+  return (
+    <View style={styles.container}>
+      <View style={styles.subContainer}>
+        <Text style={styles.titleText}>Get Started</Text>
 
-      <TextInput label="Email Address" mode="outlined" style={styles.input} />
+        <Text style={styles.descriptionText}>
+          Please type your email address to get started
+        </Text>
+
+        <TextInput
+          label="Email Address"
+          mode="outlined"
+          style={styles.input}
+          onChangeText={setEmail}
+        />
+      </View>
+
+      <Button
+        disabled={!email}
+        mode="contained"
+        style={styles.continueButton}
+        onPress={() => props.onRequestOtp(email)}
+      >
+        CONTINUE
+      </Button>
     </View>
-
-    <Button
-      mode="contained"
-      style={styles.continueButton}
-      onPress={props.onNavigateToOtp}
-    >
-      CONTINUE
-    </Button>
-  </View>
-);
+  );
+};
 
 export default RegistrationPhaseOneView;
 

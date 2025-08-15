@@ -1,54 +1,101 @@
 import { Colors } from "@/src/common/colors";
+import { Formik } from "formik";
 import React from "react";
 import { StyleSheet, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { Avatar, Button, Text, TextInput } from "react-native-paper";
+import * as Yup from "yup";
+
+export interface IRegistrationFormModel {
+  email: string;
+  full_name: string;
+  phone_number: string;
+}
 
 interface IRegistrationPhaseThreeViewModel {
-  onConfirm: () => void;
+  onConfirm: (form: IRegistrationFormModel) => void;
+  registeredEmail: string;
 }
 
 const RegistrationPhaseThreeView: React.FC<IRegistrationPhaseThreeViewModel> = (
   props
-) => (
-  <View style={styles.container}>
-    <ScrollView>
-      <View style={styles.subContainer}>
-        <Text style={styles.titleText}>Profile Details</Text>
+) => {
+  const formvalue: IRegistrationFormModel = {
+    email: props.registeredEmail,
+    full_name: "",
+    phone_number: "",
+  };
 
-        <Text style={styles.descriptionText}>
-          Please fill in your profile details to proceed
-        </Text>
-
-        <Avatar.Icon size={70} icon="account" style={styles.accountIcon} />
-
-        <TextInput
-          label="Full Name"
-          mode="outlined"
-          style={styles.fullNameInput}
-        />
-
-        <TextInput label="Email" mode="outlined" style={styles.input} />
-
-        <TextInput
-          returnKeyType="done"
-          inputMode="numeric"
-          label="Phone Number"
-          mode="outlined"
-          style={styles.input}
-        />
-      </View>
-    </ScrollView>
-
-    <Button
-      mode="contained"
-      style={styles.continueButton}
-      onPress={props.onConfirm}
+  return (
+    <Formik
+      validateOnMount
+      validationSchema={Schema}
+      initialValues={formvalue}
+      onSubmit={props.onConfirm}
     >
-      CONTINUE
-    </Button>
-  </View>
-);
+      {({ setFieldValue, handleSubmit, values, isValid }) => (
+        <View style={styles.container}>
+          <ScrollView>
+            <View style={styles.subContainer}>
+              <Text style={styles.titleText}>Profile Details</Text>
+
+              <Text style={styles.descriptionText}>
+                Please fill in your profile details to proceed
+              </Text>
+
+              <Avatar.Icon
+                size={70}
+                icon="account"
+                style={styles.accountIcon}
+              />
+
+              <TextInput
+                label="Full Name"
+                mode="outlined"
+                style={styles.fullNameInput}
+                value={values.full_name}
+                onChangeText={(text) => setFieldValue("full_name", text)}
+              />
+
+              <TextInput
+                label="Email"
+                mode="outlined"
+                style={styles.input}
+                disabled
+                value={values.email}
+              />
+
+              <TextInput
+                returnKeyType="done"
+                inputMode="numeric"
+                label="Phone Number"
+                mode="outlined"
+                style={styles.input}
+                value={values.phone_number}
+                onChangeText={(text) => setFieldValue("phone_number", text)}
+              />
+            </View>
+          </ScrollView>
+
+          <Button
+            disabled={!isValid}
+            mode="contained"
+            style={styles.continueButton}
+            onPress={() => handleSubmit()}
+          >
+            CONTINUE
+          </Button>
+        </View>
+      )}
+    </Formik>
+  );
+};
+
+const Schema = Yup.object().shape({
+  email: Yup.string().required(),
+  full_name: Yup.string().required(),
+  phone_number: Yup.string().required(),
+});
 
 export default RegistrationPhaseThreeView;
 

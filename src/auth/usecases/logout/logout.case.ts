@@ -1,0 +1,21 @@
+import StorageRepository from "@/src/common/interfaces/gateways/storage.repository";
+import { keys } from "@/src/common/keys";
+import AuthUserEntity from "../../entities/auth-user.entity";
+import AuthRepository from "../../interfaces/gateways/auth.repository";
+export default class LogoutCase {
+  constructor(
+    private readonly authRepo: AuthRepository,
+    private readonly storageRepo: StorageRepository
+  ) {}
+
+  delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+  async execute(): Promise<void> {
+    this.authRepo.setIsLoading(true);
+    await this.delay(1000);
+    this.authRepo.setIsLoggedIn(false);
+    this.authRepo.setAuthUser(new AuthUserEntity());
+    await this.storageRepo.removeItem(keys.authUser);
+    this.authRepo.setIsLoading(false);
+  }
+}

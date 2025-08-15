@@ -18,8 +18,6 @@ export async function registerForPushNotificationsAsync(): Promise<
       finalStatus = status;
     }
 
-    console.log("finalStatus", finalStatus);
-
     if (finalStatus !== "granted") {
       alert("Failed to get push token!");
       return undefined;
@@ -30,7 +28,6 @@ export async function registerForPushNotificationsAsync(): Promise<
         projectId: "5143db7d-87f5-4c01-8f07-57955380006c",
       });
       token = tokenData.data;
-      console.log("Expo Push Token:", token);
     } catch (error) {
       console.error("Error getting push token:", error);
     }

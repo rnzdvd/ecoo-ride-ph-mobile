@@ -1,0 +1,26 @@
+import { IStore } from "../../../app/store";
+import BalanceEntity from "../../entities/balance.entity";
+
+export default class AccountRepository {
+  private readonly store: IStore;
+
+  constructor(store: IStore) {
+    this.store = store;
+  }
+
+  setBalance(balance: BalanceEntity): void {
+    this.store.account.balance = balance;
+  }
+
+  setIsLoading(isLoading: boolean): void {
+    this.store.account.isLoading = isLoading;
+  }
+
+  setIsSuccess(isSuccess: boolean): void {
+    this.store.account.isSuccess = isSuccess;
+  }
+
+  setErrorMessage(errorMessage: string): void {
+    this.store.account.errorMessage = errorMessage;
+  }
+}

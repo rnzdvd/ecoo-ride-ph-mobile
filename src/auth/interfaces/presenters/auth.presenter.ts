@@ -1,4 +1,5 @@
 import { IStore } from "../../../app/store";
+import AuthUserEntity from "../../entities/auth-user.entity";
 
 export default class AuthPresenter {
   private readonly store: IStore;
@@ -13,5 +14,21 @@ export default class AuthPresenter {
 
   isLoggedIn(): boolean {
     return this.store.auth.isLoggedIn;
+  }
+
+  isSuccess(): boolean {
+    return this.store.auth.isSuccess;
+  }
+
+  isLoading(): boolean {
+    return this.store.auth.isLoading;
+  }
+
+  getErrorMessage(): string {
+    return this.store.auth.errorMessage;
+  }
+
+  getAuthUser(): AuthUserEntity {
+    return this.store.auth.authUser;
   }
 }

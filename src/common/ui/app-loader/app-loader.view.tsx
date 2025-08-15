@@ -1,3 +1,4 @@
+import { useIsFocused } from "@react-navigation/native";
 import React from "react";
 import { StyleSheet } from "react-native";
 import Modal from "react-native-modal";
@@ -7,16 +8,24 @@ interface IAppLoaderViewModel {
   isVisible: boolean;
 }
 
-const AppLoaderView: React.FC<IAppLoaderViewModel> = (props) => (
-  <Modal
-    animationIn="fadeIn"
-    animationOut="fadeOut"
-    isVisible={props.isVisible}
-    style={styles.container}
-  >
-    <ActivityIndicator size="small" />
-  </Modal>
-);
+const AppLoaderView: React.FC<IAppLoaderViewModel> = (props) => {
+  const isFocused = useIsFocused();
+
+  if (props.isVisible && isFocused) {
+    return (
+      <Modal
+        animationIn="fadeIn"
+        animationOut="fadeOut"
+        isVisible={props.isVisible}
+        style={styles.container}
+      >
+        <ActivityIndicator size="small" />
+      </Modal>
+    );
+  }
+
+  return null;
+};
 
 export default AppLoaderView;
 

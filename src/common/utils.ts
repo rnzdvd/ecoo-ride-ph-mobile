@@ -7,3 +7,21 @@ export function formatSeconds(seconds: number): string {
 
   return `${formattedMins}m:${formattedSecs}s`;
 }
+
+// sample usage calculateChargeAmount(1000, 0.023);
+export function calculateChargeAmount(
+  targetNet: number,
+  percentageFee: number,
+  flatFee: number = 0
+): number {
+  const amount = (targetNet + flatFee) / (1 - percentageFee);
+  return Math.ceil(amount); // Always round up to nearest peso
+}
+
+export function codeStatusChecker(status?: number): boolean {
+  if (status) {
+    return status >= 200 && status < 300;
+  } else {
+    return false;
+  }
+}

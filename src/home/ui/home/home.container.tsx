@@ -1,8 +1,10 @@
 import { StoreContext } from "@/src/app/store";
-import AuthController from "@/src/auth/interfaces/controllers/auth.controller";
-import AuthPresenter from "@/src/auth/interfaces/presenters/auth.presenter";
+import AppLoaderView from "@/src/common/ui/app-loader/app-loader.view";
 import { Observer } from "mobx-react-lite";
 import React from "react";
+import { View } from "react-native";
+import HomeController from "../../interfaces/controllers/home.controller";
+import HomePresenter from "../../interfaces/presenters/home.presenter";
 import HomeView from "./home.view";
 
 const HomeContainer: React.FC<{
@@ -11,19 +13,33 @@ const HomeContainer: React.FC<{
   onGetStarted: () => void;
 }> = (props) => {
   const store = React.useContext(StoreContext);
-  const controller = new AuthController(store);
-  const presenter = new AuthPresenter(store);
+
+  const controller = new HomeController(store);
+  const presenter = new HomePresenter(store);
+
+  React.useEffect(() => {
+    controller.loadScooters();
+
+    if (presenter.isLoggedIn()) {
+      controller.loadAccountBalance();
+    }
+  }, []);
 
   return (
     <Observer>
       {() => {
+        const scooters = presenter.getScooters();
         return (
-          <HomeView
-            onOpenDrawer={props.onOpenDrawer}
-            onScanQR={props.onScanQR}
-            onGetStarted={props.onGetStarted}
-            isLoggedIn={presenter.isLoggedIn()}
-          />
+          <View style={{ flex: 1 }}>
+            <HomeView
+              scooters={scooters}
+              onOpenDrawer={props.onOpenDrawer}
+              onScanQR={props.onScanQR}
+              onGetStarted={props.onGetStarted}
+              isLoggedIn={presenter.isLoggedIn()}
+            />
+            <AppLoaderView isVisible={presenter.isLoading()} />
+          </View>
         );
       }}
     </Observer>
