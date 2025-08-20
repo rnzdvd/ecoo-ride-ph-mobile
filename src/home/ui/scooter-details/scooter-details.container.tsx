@@ -16,7 +16,8 @@ const ScooterDetailsContainer: React.FC<{
   const controller = new HomeController(store);
   const presenter = new HomePresenter(store);
 
-  const handleContinue = (): void => {
+  const handleContinue = (selectedOption: string): void => {
+    controller.setSelectedOption(selectedOption);
     props.onModalClose();
     props.onContinue();
   };

@@ -27,7 +27,19 @@ export default class HomePresenter {
     return this.store.home.scooter;
   }
 
+  isSuccess() {
+    return this.store.home.isSuccess;
+  }
+
   isLoading() {
     return this.store.home.isLoading;
+  }
+
+  getCurrentRide() {
+    return this.store.ride.currentRide;
+  }
+
+  getRideErrorMessage() {
+    return this.store.ride.errorMessage;
   }
 }

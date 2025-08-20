@@ -1,5 +1,6 @@
 import { Colors } from "@/src/common/colors";
 import { formatSeconds } from "@/src/common/utils";
+import ScooterEntity from "@/src/home/entities/scooter.entity";
 import * as Location from "expo-location";
 import React, { useRef, useState } from "react";
 import { Dimensions, StyleSheet, View } from "react-native";
@@ -11,9 +12,12 @@ import {
   Surface,
   Text,
 } from "react-native-paper";
+import RideEntity from "../../entities/ride.entity";
 
 interface IRideViewModel {
   onRideEnd: () => void;
+  rideEntity: RideEntity;
+  scooterEntity: ScooterEntity;
 }
 
 const RideView: React.FC<IRideViewModel> = (props) => {
@@ -21,7 +25,7 @@ const RideView: React.FC<IRideViewModel> = (props) => {
     null
   );
   const [loading, setLoading] = useState<boolean>(true);
-  const [timer, setTimer] = useState<number>(0);
+  const [timer, setTimer] = useState<number>(props.rideEntity.totalDuration);
   const timerRef = useRef<number | null>(null);
 
   React.useEffect(() => {
@@ -117,7 +121,9 @@ const RideView: React.FC<IRideViewModel> = (props) => {
 
           <View style={styles.scooterNameContainer}>
             <View style={styles.subScooterNameContainer}>
-              <Text style={styles.scooterNameText}>MVRS0052</Text>
+              <Text style={styles.scooterNameText}>
+                {props.scooterEntity.name}
+              </Text>
               <View
                 style={{
                   flexDirection: "row",
@@ -134,7 +140,9 @@ const RideView: React.FC<IRideViewModel> = (props) => {
                 >
                   <Icon source={"battery-high"} size={15} />
                 </View>
-                <Text style={styles.scooterBatterLevelText}>95%</Text>
+                <Text style={styles.scooterBatterLevelText}>
+                  {props.scooterEntity.battery}%
+                </Text>
               </View>
             </View>
           </View>

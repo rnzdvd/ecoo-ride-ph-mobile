@@ -1,6 +1,8 @@
 import { Colors } from "@/src/common/colors";
 import React from "react";
 import {
+  Image,
+  ImageSourcePropType,
   StyleProp,
   StyleSheet,
   TouchableWithoutFeedback,
@@ -12,11 +14,14 @@ import BalanceEntity from "../../entities/balance.entity";
 
 interface ITopUpViewModel {
   balanceEntity: BalanceEntity;
+  paymentMethod: string;
+  onTopUp: (amount: number) => void;
 }
 
 const TopUpView: React.FC<ITopUpViewModel> = (props) => {
   const [selectedOption, setSelectedOption] = React.useState<number>(200);
-
+  let logoPath: ImageSourcePropType = require("../../../../assets/images/gcash_logo.png");
+  let paymentFee: number = 0;
   const selectedStyle = (option: number): StyleProp<ViewStyle> => {
     if (selectedOption === option) {
       return {
@@ -27,6 +32,14 @@ const TopUpView: React.FC<ITopUpViewModel> = (props) => {
 
     return {};
   };
+
+  if (props.paymentMethod === "GCASH") {
+    logoPath = require("../../../../assets/images/gcash_logo.png");
+    paymentFee = 2.3;
+  } else if (props.paymentMethod === "PAYMAYA") {
+    paymentFee = 2.0;
+    logoPath = require("../../../../assets/images/maya_logo.jpg");
+  }
 
   return (
     <View style={styles.container}>
@@ -44,7 +57,7 @@ const TopUpView: React.FC<ITopUpViewModel> = (props) => {
         </View>
       </View>
 
-      <View style={{ padding: 20, marginTop: 40, flex: 1 }}>
+      <View style={{ padding: 20, marginTop: 20, flex: 1 }}>
         <Text style={{ color: Colors.semiDarkGrey, fontSize: 14 }}>
           Choose your top up amount
         </Text>
@@ -80,12 +93,27 @@ const TopUpView: React.FC<ITopUpViewModel> = (props) => {
         </TouchableWithoutFeedback>
       </View>
 
+      <View style={styles.paymentMethodContainer}>
+        <Image
+          source={logoPath}
+          style={{ width: 25, height: 25 }}
+          resizeMode="contain"
+        />
+        <Text style={{ fontWeight: "bold", marginStart: 10 }}>
+          {props.paymentMethod}
+        </Text>
+      </View>
+
       <Text style={{ marginHorizontal: 20, fontSize: 12 }}>
-        Please note: A 2.3% transaction fee will be added to your payment, and
-        you will be responsible for covering this fee.
+        Please note: A {paymentFee}% transaction fee will be added to your
+        payment, and you will be responsible for covering this fee.
       </Text>
 
-      <Button mode="contained" style={styles.topUpButton}>
+      <Button
+        mode="contained"
+        style={styles.topUpButton}
+        onPress={() => props.onTopUp(selectedOption)}
+      >
         TOP UP
       </Button>
     </View>
@@ -106,6 +134,17 @@ const styles = StyleSheet.create({
     marginTop: 20,
     borderColor: Colors.lightGrey,
     borderWidth: 1,
+  },
+  paymentMethodContainer: {
+    padding: 15,
+    borderRadius: 5,
+    backgroundColor: Colors.white,
+    marginTop: 20,
+    borderColor: Colors.lightGrey,
+    borderWidth: 1,
+    margin: 20,
+    flexDirection: "row",
+    alignItems: "center",
   },
   balanceContainer: {
     alignItems: "center",

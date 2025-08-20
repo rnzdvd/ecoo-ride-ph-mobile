@@ -25,3 +25,16 @@ export function codeStatusChecker(status?: number): boolean {
     return false;
   }
 }
+
+export function getGapSeconds(date: string): number {
+  // Convert to Date object
+  const pastDate = new Date(date);
+
+  // Get current time
+  const now = new Date();
+
+  // Calculate difference in seconds
+  const diffSeconds = Math.floor((now.getTime() - pastDate.getTime()) / 1000);
+
+  return diffSeconds;
+}

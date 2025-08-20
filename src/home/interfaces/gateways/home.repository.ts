@@ -39,4 +39,12 @@ export default class HomeRepository {
   getScannedQRValue() {
     return this.store.home.sqannedQRValue;
   }
+
+  getSelectedOption() {
+    return this.store.home.selectedOption;
+  }
+
+  setSelectedOption(selectedOption: string) {
+    this.store.home.selectedOption = selectedOption;
+  }
 }

@@ -10,6 +10,7 @@ export default class HomeStore {
   isLoading: boolean = false;
   isSuccess: boolean = false;
   errorMessage: string = "";
+  selectedOption: string = "";
   scooters: ScooterEntity[] = [];
   scooter: ScooterEntity = new ScooterEntity();
 }

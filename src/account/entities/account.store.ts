@@ -10,4 +10,6 @@ export default class AccountStore {
   isSuccess: boolean = false;
   isLoading: boolean = false;
   errorMessage: string = "";
+  currentPaymentMethod: string = "GCASH";
+  paymentUrl: string = "";
 }

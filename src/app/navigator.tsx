@@ -8,6 +8,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Observer } from "mobx-react-lite";
 import React from "react";
 import BalanceScreen from "../account/screens/balance.screen";
+import PaymentOptionsScreen from "../account/screens/payment-options.screen";
 import TopUpScreen from "../account/screens/top-up.screen";
 import HowToRideScreen from "../auth/screens/how-to-ride.screen";
 import LoginScreen from "../auth/screens/login.screen";
@@ -15,7 +16,7 @@ import RegistrationPhaseOneScreen from "../auth/screens/registration-phase-one.s
 import RegistrationPhaseThreeScreen from "../auth/screens/registration-phase-three.screen";
 import RegistrationPhaseTwoScreen from "../auth/screens/registration-phase-two.screen";
 import SplashScreen from "../auth/screens/splash.screen";
-import PushNotificationView from "../common/ui/push-notification/push-notification.view";
+import PushNotificationContainer from "../common/ui/push-notification/push-notification.container";
 import HomeScreen from "../home/screens/home.screen";
 import ScanScreen from "../home/screens/scan.screen";
 import DrawerContainer from "../home/ui/drawer/drawer.container";
@@ -37,9 +38,9 @@ const Navigator: React.FC = () => {
       <Observer>
         {() => {
           return (
-            <PushNotificationView>
+            <PushNotificationContainer>
               <BaseStack />
-            </PushNotificationView>
+            </PushNotificationContainer>
           );
         }}
       </Observer>
@@ -79,6 +80,10 @@ const BaseStack: React.FC = () => (
     <Stack.Screen
       name={ScreenNames.HowToRideScreen}
       component={HowToRideScreen}
+    />
+    <Stack.Screen
+      name={ScreenNames.PaymentOptionsScreen}
+      component={PaymentOptionsScreen}
     />
   </Stack.Navigator>
 );

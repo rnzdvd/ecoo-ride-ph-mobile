@@ -32,3 +32,27 @@ export interface IScooterResponseModel {
     lng: number;
   };
 }
+
+export interface IRideDetailsResponseModel {
+  message: string;
+  ride: {
+    id: number;
+    user_id: number;
+    scooter_id: string;
+    started_at: string;
+    billed_intervals: number;
+    status: string;
+    option: string;
+    total_distance: number;
+    total_charged: number;
+    total_duration: number;
+  };
+}
+
+export interface IRequestPaymentResponseModel {
+  actions: IPaymentActions[];
+}
+
+export interface IPaymentActions {
+  value: string;
+}

@@ -23,4 +23,12 @@ export default class AccountPresenter {
   getErrorMessage(): string {
     return this.store.account.errorMessage;
   }
+
+  getCurrentPaymentMethod(): string {
+    return this.store.account.currentPaymentMethod;
+  }
+
+  getPaymentUrl(): string {
+    return this.store.account.paymentUrl;
+  }
 }

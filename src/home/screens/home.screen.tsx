@@ -18,6 +18,7 @@ const HomeScreen: React.FC<IScreenContainer> = ({ navigation }) => {
         onGetStarted={() =>
           navigation.navigate(ScreenNames.RegistrationPhaseOne)
         }
+        onNavigateToRide={() => navigation.navigate(ScreenNames.RideScreen)}
       />
     </AppScreen>
   );

@@ -4,6 +4,8 @@ import {
   IAccountBalanceResponseModel,
   ILoginResponseModel,
   IRegisterResponseModel,
+  IRequestPaymentResponseModel,
+  IRideDetailsResponseModel,
   IScooterResponseModel,
 } from "../api/api-models";
 
@@ -88,5 +90,39 @@ export default class ApiGateway extends Api {
     data: IScooterResponseModel;
   }> {
     return await this.get(`api/scooter-details?id=${id}`);
+  }
+
+  async startRide(data: { scooter_id: string; option: string }): Promise<{
+    status_code: number;
+    data: IRideDetailsResponseModel;
+  }> {
+    return await this.post("api/start-ride", data);
+  }
+
+  async endRide(data: { id: string }): Promise<{
+    status_code: number;
+    data: {
+      message: string;
+      ride_id: number;
+    };
+  }> {
+    return await this.post("api/end-ride", data);
+  }
+
+  async getRideById(id: string): Promise<{
+    status_code: number;
+    data: IRideDetailsResponseModel;
+  }> {
+    return await this.get(`api/get-ride?id=${id}`);
+  }
+
+  async requestPayment(data: {
+    amount: number;
+    channel_code: string;
+  }): Promise<{
+    status_code: number;
+    data: IRequestPaymentResponseModel;
+  }> {
+    return await this.post("api/request-payment", data);
   }
 }

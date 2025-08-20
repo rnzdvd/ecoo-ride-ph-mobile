@@ -23,4 +23,12 @@ export default class AccountRepository {
   setErrorMessage(errorMessage: string): void {
     this.store.account.errorMessage = errorMessage;
   }
+
+  setPaymentUrl(paymentUrl: string): void {
+    this.store.account.paymentUrl = paymentUrl;
+  }
+
+  getCurrentPaymentMethod(): string {
+    return this.store.account.currentPaymentMethod;
+  }
 }

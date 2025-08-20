@@ -17,11 +17,11 @@ interface IScooterDetailsViewModel {
   balanceEntity: BalanceEntity;
   scooterEntity: ScooterEntity;
   onModalClose: () => void;
-  onContinue: () => void;
+  onContinue: (selectedOption: string) => void;
 }
 
 const ScooterDetailsView: React.FC<IScooterDetailsViewModel> = (props) => {
-  const [selectedOption, setSelectedOption] = React.useState<string>("10min");
+  const [selectedOption, setSelectedOption] = React.useState<string>("");
 
   const selectedStyle = (option: string): StyleProp<ViewStyle> => {
     if (selectedOption === option) {
@@ -32,6 +32,18 @@ const ScooterDetailsView: React.FC<IScooterDetailsViewModel> = (props) => {
     }
 
     return {};
+  };
+
+  const handleSelectOption = (option: string): void => {
+    if (option === "10min") {
+      if (props.balanceEntity.balance >= 35) {
+        setSelectedOption(option);
+      }
+    } else {
+      if (props.balanceEntity.balance >= 65) {
+        setSelectedOption(option);
+      }
+    }
   };
 
   return (
@@ -68,17 +80,31 @@ const ScooterDetailsView: React.FC<IScooterDetailsViewModel> = (props) => {
         <View style={{ marginTop: 20 }}>
           <Text style={styles.pricingDetailsLabel}>Pricing Details</Text>
 
-          <TouchableWithoutFeedback onPress={() => setSelectedOption("10min")}>
+          <TouchableWithoutFeedback onPress={() => handleSelectOption("10min")}>
             <View style={[styles.rentOptionContainer, selectedStyle("10min")]}>
-              <Text style={styles.bikeRentalPriceLabelTwo}>
+              <Text
+                style={[
+                  styles.bikeRentalPriceLabelTwo,
+                  props.balanceEntity.balance < 35 && {
+                    color: Colors.semiDarkGrey,
+                  },
+                ]}
+              >
                 Rent it for 35 PHP for 10 mins
               </Text>
             </View>
           </TouchableWithoutFeedback>
 
-          <TouchableWithoutFeedback onPress={() => setSelectedOption("20min")}>
+          <TouchableWithoutFeedback onPress={() => handleSelectOption("20min")}>
             <View style={[styles.rentOptionContainer, selectedStyle("20min")]}>
-              <Text style={styles.bikeRentalPriceLabelTwo}>
+              <Text
+                style={[
+                  styles.bikeRentalPriceLabelTwo,
+                  props.balanceEntity.balance < 65 && {
+                    color: Colors.semiDarkGrey,
+                  },
+                ]}
+              >
                 Rent it for 65 PHP for 20 mins
               </Text>
             </View>
@@ -108,9 +134,10 @@ const ScooterDetailsView: React.FC<IScooterDetailsViewModel> = (props) => {
         </View>
 
         <Button
+          disabled={!selectedOption}
           mode="contained"
           style={styles.continueButton}
-          onPress={props.onContinue}
+          onPress={() => props.onContinue(selectedOption)}
         >
           CONTINUE
         </Button>

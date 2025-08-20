@@ -13,4 +13,5 @@ export const ScreenNames = {
   BalanceScreen: "BalanceScreen",
   TopUpScreen: "TopUpScreen",
   HowToRideScreen: "HowToRideScreen",
+  PaymentOptionsScreen: "PaymentOptionsScreen",
 };
