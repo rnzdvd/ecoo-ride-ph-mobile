@@ -9,6 +9,7 @@ export default class AuthStore {
   isLoggedIn: boolean = false;
   isSuccess: boolean = false;
   isLoading: boolean = false;
+  isSessionExpired: boolean = false;
   emailRegistered: string = "";
   errorMessage: string = "";
   authUser: AuthUserEntity = new AuthUserEntity();

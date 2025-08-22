@@ -48,10 +48,7 @@ const ScooterDetailsView: React.FC<IScooterDetailsViewModel> = (props) => {
 
   return (
     <Modal
-      style={{
-        justifyContent: "flex-end",
-        margin: 0,
-      }}
+      style={styles.modalContainer}
       propagateSwipe
       isVisible={props.isVisible}
       onBackdropPress={props.onModalClose}
@@ -77,7 +74,7 @@ const ScooterDetailsView: React.FC<IScooterDetailsViewModel> = (props) => {
           </View>
         </View>
 
-        <View style={{ marginTop: 20 }}>
+        <View style={styles.bikeRentPriceParentContainer}>
           <Text style={styles.pricingDetailsLabel}>Pricing Details</Text>
 
           <TouchableWithoutFeedback onPress={() => handleSelectOption("10min")}>
@@ -123,13 +120,11 @@ const ScooterDetailsView: React.FC<IScooterDetailsViewModel> = (props) => {
 
         <View style={styles.walletContainer}>
           <Icon source="wallet" size={35} color={Colors.primaryColor} />
-          <View style={{ marginLeft: 10 }}>
+          <View style={styles.balanceContainer}>
             <Text style={styles.walletLabel}>
               {props.balanceEntity.balance} PHP
             </Text>
-            <Text style={{ fontSize: 10, color: Colors.semiDarkGrey }}>
-              Current Balance
-            </Text>
+            <Text style={styles.currentBalanceLabel}>Current Balance</Text>
           </View>
         </View>
 
@@ -225,5 +220,19 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderWidth: 2,
     borderColor: Colors.lightGrey,
+  },
+  modalContainer: {
+    justifyContent: "flex-end",
+    margin: 0,
+  },
+  bikeRentPriceParentContainer: {
+    marginTop: 20,
+  },
+  balanceContainer: {
+    marginLeft: 10,
+  },
+  currentBalanceLabel: {
+    fontSize: 10,
+    color: Colors.semiDarkGrey,
   },
 });

@@ -1,4 +1,5 @@
 import { ScreenNames } from "@/src/app/screen-registry";
+import { Colors } from "@/src/common/colors";
 import { DrawerActions } from "@react-navigation/native";
 import React from "react";
 import AppScreen, { IScreenContainer } from "../../common/ui/app.screen";
@@ -10,7 +11,7 @@ const HomeScreen: React.FC<IScreenContainer> = ({ navigation }) => {
       title="Home"
       navigation={navigation}
       barStyle="dark-content"
-      statusBarBg="black"
+      statusBarBg={Colors.white}
     >
       <HomeContainer
         onOpenDrawer={() => navigation.dispatch(DrawerActions.openDrawer())}

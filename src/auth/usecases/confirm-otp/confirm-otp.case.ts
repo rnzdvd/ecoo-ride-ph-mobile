@@ -34,7 +34,7 @@ export default class ConfirmOtpCase {
           const token = await registerForPushNotificationsAsync();
           const loginViaEmailResponse = await this.apiGateway.loginViaEmail({
             email: registeredEmail,
-            deviceToken: token ?? "",
+            deviceToken: token ?? "no token",
           });
 
           if (codeStatusChecker(loginViaEmailResponse.status_code)) {

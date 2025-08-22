@@ -124,20 +124,8 @@ const RideView: React.FC<IRideViewModel> = (props) => {
               <Text style={styles.scooterNameText}>
                 {props.scooterEntity.name}
               </Text>
-              <View
-                style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                  marginTop: 5,
-                }}
-              >
-                <View
-                  style={{
-                    padding: 1,
-                    backgroundColor: Colors.white,
-                    borderRadius: 10,
-                  }}
-                >
+              <View style={styles.batteryDetailsContainer}>
+                <View style={styles.batteryIconContainer}>
                   <Icon source={"battery-high"} size={15} />
                 </View>
                 <Text style={styles.scooterBatterLevelText}>
@@ -182,7 +170,6 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     backgroundColor: Colors.white,
-    marginVertical: 10,
     padding: 20,
   },
   mapContainer: {
@@ -256,5 +243,15 @@ const styles = StyleSheet.create({
   },
   scooterIconContainer: {
     zIndex: 1,
+  },
+  batteryDetailsContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 5,
+  },
+  batteryIconContainer: {
+    padding: 1,
+    backgroundColor: Colors.white,
+    borderRadius: 10,
   },
 });

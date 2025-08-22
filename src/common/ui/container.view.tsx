@@ -7,7 +7,7 @@ import {
   StyleSheet,
   View,
 } from "react-native";
-import { SafeAreaProvider } from "react-native-safe-area-context";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import CustomStatusBarView from "./custom-status-bar.view";
 
 interface IContainerViewModel {
@@ -25,13 +25,22 @@ const Container: React.FC<IContainerViewModel> = (props) => (
     />
 
     <SafeAreaProvider>
-      <KeyboardAvoidingView
-        style={styles.container}
-        behavior={Platform.OS === "ios" ? "padding" : "height"} // or 'position'
-        enabled={Platform.OS === "ios" && props.enableAvoidingView}
+      <SafeAreaView
+        style={[
+          styles.container,
+          {
+            backgroundColor: props.statusBarBg,
+          },
+        ]}
       >
-        {props.children}
-      </KeyboardAvoidingView>
+        <KeyboardAvoidingView
+          style={styles.container}
+          behavior={Platform.OS === "ios" ? "padding" : "height"} // or 'position'
+          enabled={Platform.OS === "ios" && props.enableAvoidingView}
+        >
+          {props.children}
+        </KeyboardAvoidingView>
+      </SafeAreaView>
     </SafeAreaProvider>
   </View>
 );

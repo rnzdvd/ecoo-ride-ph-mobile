@@ -6,7 +6,7 @@ import * as Notifications from "expo-notifications";
 import { useNavigation } from "expo-router";
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import Toast from "react-native-toast-message";
+import { showToast } from "../../utils";
 
 interface IPushNotificationViewModel {
   children: JSX.Element;
@@ -35,11 +35,11 @@ const PushNotificationContainer: React.FC<IPushNotificationViewModel> = (
       console.log("Notification Received:", notification);
       // You can update UI or state here
       if (notification.request.content.title === "Ride Ended") {
-        Toast.show({
-          text1: "Your ride has ended.",
-          text2: "Your ride has ended due to low wallet balance.",
-          type: "error",
-        });
+        showToast(
+          "OTP Confirmation Failed",
+          "Your ride has ended due to low wallet balance.",
+          "info"
+        );
         controller.clearCurrentRide();
         handleToHome();
       }

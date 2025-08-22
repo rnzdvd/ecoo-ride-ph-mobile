@@ -29,7 +29,11 @@ export default class AuthController {
     );
     this.requestOtpCase = new RequestOtpCase(apiGateway, authRepo);
     this.confirmOtpCase = new ConfirmOtpCase(apiGateway, authRepo, storageRepo);
-    this.checkLoginStatusCase = new CheckLoginStatusCase(authRepo, storageRepo);
+    this.checkLoginStatusCase = new CheckLoginStatusCase(
+      apiGateway,
+      authRepo,
+      storageRepo
+    );
     this.logoutCase = new LogoutCase(authRepo, storageRepo);
   }
 

@@ -16,7 +16,10 @@
     "screen": "hygen screen new",
     "container": "hygen container new",
     "entity": "hygen entity new",
-    "repo": "hygen gateway repo"
+    "repo": "hygen gateway repo",
+    "build:apk": "eas build -p android --profile production",
+    "deploy:testflight": "eas build -p ios --auto-submit",
+    "creds": "eas credentials"
   },
   "dependencies": {
     "@expo/vector-icons": "^14.1.0",
@@ -62,6 +65,7 @@
     "react-native-screens": "~4.11.1",
     "react-native-shadow-2": "^7.1.2",
     "react-native-svg": "^15.12.0",
+    "react-native-svg-transformer": "^1.5.1",
     "react-native-toast-message": "^2.3.3",
     "react-native-vector-icons": "^10.3.0",
     "react-native-web": "~0.20.0",

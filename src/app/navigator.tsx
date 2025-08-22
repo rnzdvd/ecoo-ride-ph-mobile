@@ -16,16 +16,29 @@ import RegistrationPhaseOneScreen from "../auth/screens/registration-phase-one.s
 import RegistrationPhaseThreeScreen from "../auth/screens/registration-phase-three.screen";
 import RegistrationPhaseTwoScreen from "../auth/screens/registration-phase-two.screen";
 import SplashScreen from "../auth/screens/splash.screen";
+import SessionContainer from "../auth/ui/session/session.container";
 import PushNotificationContainer from "../common/ui/push-notification/push-notification.container";
 import HomeScreen from "../home/screens/home.screen";
 import ScanScreen from "../home/screens/scan.screen";
 import DrawerContainer from "../home/ui/drawer/drawer.container";
+import RideHistoryScreen from "../ride/screens/ride-history.screen";
 import RideInstructionsScreen from "../ride/screens/ride-instructions.screen";
 import RideScreen from "../ride/screens/ride.screen";
 import { ScreenNames } from "./screen-registry";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
+
+const linking = {
+  prefixes: ["ecooridephapp://", "https://ecoo.ride-ph.com"],
+  config: {
+    screens: {
+      Success: "success",
+      Fail: "fail",
+      Cancel: "cancel",
+    },
+  },
+};
 
 const Navigator: React.FC = () => {
   const navigationRef =
@@ -34,13 +47,15 @@ const Navigator: React.FC = () => {
     );
 
   return (
-    <NavigationContainer ref={navigationRef}>
+    <NavigationContainer ref={navigationRef} linking={linking}>
       <Observer>
         {() => {
           return (
-            <PushNotificationContainer>
-              <BaseStack />
-            </PushNotificationContainer>
+            <SessionContainer>
+              <PushNotificationContainer>
+                <BaseStack />
+              </PushNotificationContainer>
+            </SessionContainer>
           );
         }}
       </Observer>
@@ -84,6 +99,10 @@ const BaseStack: React.FC = () => (
     <Stack.Screen
       name={ScreenNames.PaymentOptionsScreen}
       component={PaymentOptionsScreen}
+    />
+    <Stack.Screen
+      name={ScreenNames.RideHistoryScreen}
+      component={RideHistoryScreen}
     />
   </Stack.Navigator>
 );

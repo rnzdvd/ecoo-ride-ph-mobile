@@ -10,4 +10,5 @@ export default class RideStore {
   isSuccess: boolean = false;
   errorMessage: string = "";
   currentRide: RideEntity = new RideEntity();
+  rideHistory: RideEntity[] = [];
 }

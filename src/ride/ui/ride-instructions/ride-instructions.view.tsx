@@ -1,6 +1,11 @@
 import { Colors } from "@/src/common/colors";
 import React from "react";
-import { Image, StyleSheet, View } from "react-native";
+import {
+  Image,
+  StyleSheet,
+  TouchableWithoutFeedback,
+  View,
+} from "react-native";
 import { Button, Checkbox, Text } from "react-native-paper";
 
 interface IRideInstructionsViewModel {
@@ -13,17 +18,9 @@ const RideInstructionsView: React.FC<IRideInstructionsViewModel> = (props) => {
   return (
     <View style={styles.container}>
       <View style={styles.rideInstructionsContainer}>
-        <Text
-          style={{
-            fontSize: 30,
-            marginBottom: 50,
-            color: Colors.primaryColor,
-          }}
-        >
-          Know before you ride:
-        </Text>
+        <Text style={styles.titleText}>Know before you ride:</Text>
 
-        <View style={{ flexDirection: "row" }}>
+        <View style={styles.instructionsContainer}>
           <Image
             source={require("../../../../assets/images/no_double_riding.jpg")}
             style={styles.image}
@@ -36,7 +33,7 @@ const RideInstructionsView: React.FC<IRideInstructionsViewModel> = (props) => {
           />
         </View>
 
-        <View style={{ flexDirection: "row", marginTop: 20 }}>
+        <View style={styles.instructionsContainer}>
           <Image
             source={require("../../../../assets/images/wear_helmet.jpg")}
             style={styles.image}
@@ -50,17 +47,19 @@ const RideInstructionsView: React.FC<IRideInstructionsViewModel> = (props) => {
         </View>
       </View>
 
-      <View style={{ flexDirection: "row", margin: 20 }}>
-        <Checkbox.Android
-          status={checked ? "checked" : "unchecked"}
-          onPress={() => {
-            setChecked(!checked);
-          }}
-        />
-        <Text style={{ marginRight: 20, marginLeft: 10 }}>
-          I&apos;m responsible for my own helmet & agree to comply to all rules.
-        </Text>
-      </View>
+      <TouchableWithoutFeedback
+        onPress={() => {
+          setChecked(!checked);
+        }}
+      >
+        <View style={styles.instructionsContainer}>
+          <Checkbox.Android status={checked ? "checked" : "unchecked"} />
+          <Text style={styles.agreementText}>
+            I&apos;m responsible for my own helmet & agree to comply to all
+            rules.
+          </Text>
+        </View>
+      </TouchableWithoutFeedback>
 
       <Button
         disabled={!checked}
@@ -68,7 +67,7 @@ const RideInstructionsView: React.FC<IRideInstructionsViewModel> = (props) => {
         onPress={props.onStartRide}
         style={styles.startRideButton}
       >
-        Start Ride
+        START RIDE
       </Button>
     </View>
   );
@@ -87,13 +86,27 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   startRideButton: {
-    margin: 30,
+    margin: 20,
     borderRadius: 10,
-    padding: 5,
+    padding: 10,
   },
   image: {
     width: 130,
     height: 130,
     marginHorizontal: 20,
+  },
+  titleText: {
+    fontSize: 30,
+    marginBottom: 50,
+    color: Colors.primaryColor,
+  },
+  instructionsContainer: {
+    flexDirection: "row",
+    marginTop: 20,
+    marginHorizontal: 15,
+  },
+  agreementText: {
+    marginRight: 20,
+    marginLeft: 10,
   },
 });

@@ -1,4 +1,5 @@
 import { Colors } from "@/src/common/colors";
+import { calculateChargeAmount } from "@/src/common/utils";
 import React from "react";
 import {
   Image,
@@ -16,6 +17,7 @@ interface ITopUpViewModel {
   balanceEntity: BalanceEntity;
   paymentMethod: string;
   onTopUp: (amount: number) => void;
+  onPaymentOptions: () => void;
 }
 
 const TopUpView: React.FC<ITopUpViewModel> = (props) => {
@@ -57,54 +59,48 @@ const TopUpView: React.FC<ITopUpViewModel> = (props) => {
         </View>
       </View>
 
-      <View style={{ padding: 20, marginTop: 20, flex: 1 }}>
-        <Text style={{ color: Colors.semiDarkGrey, fontSize: 14 }}>
-          Choose your top up amount
-        </Text>
+      <View style={styles.optionsContainer}>
+        <Text style={styles.chooseAmountText}>Choose your top up amount</Text>
 
         <TouchableWithoutFeedback onPress={() => setSelectedOption(200)}>
           <View style={[styles.optionContainer, selectedStyle(200)]}>
-            <Text style={{ fontWeight: "bold" }}>200.00 PHP</Text>
+            <Text style={styles.amountText}>200.00 PHP</Text>
           </View>
         </TouchableWithoutFeedback>
 
         <TouchableWithoutFeedback onPress={() => setSelectedOption(400)}>
           <View style={[styles.optionContainer, selectedStyle(400)]}>
-            <Text style={{ fontWeight: "bold" }}>400.00 PHP</Text>
+            <Text style={styles.amountText}>400.00 PHP</Text>
           </View>
         </TouchableWithoutFeedback>
 
         <TouchableWithoutFeedback onPress={() => setSelectedOption(500)}>
           <View style={[styles.optionContainer, selectedStyle(500)]}>
-            <Text style={{ fontWeight: "bold" }}>500.00 PHP</Text>
+            <Text style={styles.amountText}>500.00 PHP</Text>
           </View>
         </TouchableWithoutFeedback>
 
         <TouchableWithoutFeedback onPress={() => setSelectedOption(800)}>
           <View style={[styles.optionContainer, selectedStyle(800)]}>
-            <Text style={{ fontWeight: "bold" }}>800.00 PHP</Text>
+            <Text style={styles.amountText}>800.00 PHP</Text>
           </View>
         </TouchableWithoutFeedback>
 
         <TouchableWithoutFeedback onPress={() => setSelectedOption(1000)}>
           <View style={[styles.optionContainer, selectedStyle(1000)]}>
-            <Text style={{ fontWeight: "bold" }}>1000.00 PHP</Text>
+            <Text style={styles.amountText}>1000.00 PHP</Text>
           </View>
         </TouchableWithoutFeedback>
       </View>
 
-      <View style={styles.paymentMethodContainer}>
-        <Image
-          source={logoPath}
-          style={{ width: 25, height: 25 }}
-          resizeMode="contain"
-        />
-        <Text style={{ fontWeight: "bold", marginStart: 10 }}>
-          {props.paymentMethod}
-        </Text>
-      </View>
+      <TouchableWithoutFeedback onPress={props.onPaymentOptions}>
+        <View style={styles.paymentMethodContainer}>
+          <Image source={logoPath} style={styles.logo} resizeMode="contain" />
+          <Text style={styles.paymentMethodText}>{props.paymentMethod}</Text>
+        </View>
+      </TouchableWithoutFeedback>
 
-      <Text style={{ marginHorizontal: 20, fontSize: 12 }}>
+      <Text style={styles.noteText}>
         Please note: A {paymentFee}% transaction fee will be added to your
         payment, and you will be responsible for covering this fee.
       </Text>
@@ -112,9 +108,11 @@ const TopUpView: React.FC<ITopUpViewModel> = (props) => {
       <Button
         mode="contained"
         style={styles.topUpButton}
-        onPress={() => props.onTopUp(selectedOption)}
+        onPress={() =>
+          props.onTopUp(calculateChargeAmount(selectedOption, paymentFee / 100))
+        }
       >
-        TOP UP
+        CONTINUE
       </Button>
     </View>
   );
@@ -148,7 +146,7 @@ const styles = StyleSheet.create({
   },
   balanceContainer: {
     alignItems: "center",
-    marginTop: 40,
+    marginTop: 20,
     flexDirection: "row",
     justifyContent: "space-between",
     marginHorizontal: 25,
@@ -158,10 +156,32 @@ const styles = StyleSheet.create({
     fontSize: 27,
   },
   topUpButton: {
-    marginHorizontal: 20,
-    marginBottom: 30,
+    margin: 20,
     borderRadius: 10,
     marginTop: 10,
     padding: 5,
+  },
+  optionsContainer: {
+    padding: 20,
+    flex: 1,
+  },
+  chooseAmountText: {
+    color: Colors.semiDarkGrey,
+    fontSize: 14,
+  },
+  amountText: {
+    fontWeight: "bold",
+  },
+  logo: {
+    width: 25,
+    height: 25,
+  },
+  noteText: {
+    marginHorizontal: 20,
+    fontSize: 12,
+  },
+  paymentMethodText: {
+    fontWeight: "bold",
+    marginStart: 10,
   },
 });

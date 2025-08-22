@@ -3,11 +3,7 @@ import React from "react";
 import { StyleSheet, View } from "react-native";
 import { ActivityIndicator, Text } from "react-native-paper";
 
-interface ISplashViewModel {
-  optional?: any;
-}
-
-const SplashView: React.FC<ISplashViewModel> = (props) => {
+const SplashView: React.FC = () => {
   return (
     <View style={styles.container}>
       <View style={styles.container}>

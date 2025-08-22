@@ -46,21 +46,21 @@ export default RegistrationPhaseOneView;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 30,
     backgroundColor: Colors.white,
   },
   subContainer: {
     flex: 1,
+    padding: 20,
   },
   titleText: {
     fontWeight: "bold",
     fontSize: 30,
-    marginTop: 70,
+    marginTop: 20,
   },
   descriptionText: {
     color: Colors.semiDarkGrey,
     marginTop: 10,
-    fontSize: 16,
+    fontSize: 14,
   },
   input: {
     marginTop: 50,
@@ -68,5 +68,6 @@ const styles = StyleSheet.create({
   continueButton: {
     padding: 5,
     borderRadius: 10,
+    margin: 20,
   },
 });

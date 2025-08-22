@@ -75,6 +75,8 @@ export class Api implements IApi {
   protected handleAPIResult<TApiResponseModel>(
     response: ApiResponse<unknown, unknown>
   ): TApiResponseModel {
+    const statusCode = (response.data as { data: { error: any } }).data.error;
+    this.authRepo.setIsSessionExpired(statusCode === "Unauthorized");
     return response.data as TApiResponseModel;
   }
 

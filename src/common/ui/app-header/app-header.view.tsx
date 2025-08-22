@@ -1,3 +1,4 @@
+import { useNavigation } from "expo-router";
 import React from "react";
 import { StyleSheet, View } from "react-native";
 import { IconButton, Text } from "react-native-paper";
@@ -6,34 +7,41 @@ import { Colors } from "../../colors";
 
 interface IAppHeaderViewModel {
   title: string;
-  onBack: () => void;
+  onBack?: () => void;
 }
 
-const AppHeaderView: React.FC<IAppHeaderViewModel> = (props) => (
-  <Shadow
-    distance={10}
-    startColor={"#00000020"}
-    containerStyle={{ width: "100%", zIndex: 1 }}
-  >
-    <View style={styles.container}>
-      <View style={styles.iconContainer}>
-        <IconButton icon="arrow-left-thin" size={30} onPress={props.onBack} />
+const AppHeaderView: React.FC<IAppHeaderViewModel> = (props) => {
+  const navigation = useNavigation();
+  return (
+    <Shadow
+      distance={10}
+      startColor={"#00000020"}
+      containerStyle={styles.shadowContainer}
+      sides={{ top: false, start: false, end: false, bottom: true }} // bottom only
+    >
+      <View style={styles.container}>
+        <View style={styles.iconContainer}>
+          <IconButton
+            icon="arrow-left-thin"
+            size={30}
+            onPress={navigation.goBack}
+          />
+        </View>
+        <View style={styles.titleContainer}>
+          <Text style={styles.title}>{props.title}</Text>
+        </View>
+        <View style={styles.spacer} />
       </View>
-      <View style={styles.titleContainer}>
-        <Text style={styles.title}>{props.title}</Text>
-      </View>
-      <View style={styles.spacer} />
-    </View>
-  </Shadow>
-);
+    </Shadow>
+  );
+};
 
 export default AppHeaderView;
 
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    paddingTop: 40,
-    height: 100,
+    height: 65,
     backgroundColor: Colors.white,
     flexDirection: "row",
     alignItems: "center",
@@ -57,5 +65,9 @@ const styles = StyleSheet.create({
     fontSize: 18,
     textAlign: "center",
     fontWeight: "bold",
+  },
+  shadowContainer: {
+    width: "100%",
+    zIndex: 1,
   },
 });

@@ -20,13 +20,12 @@ export default class LoadOngoingRideCase {
 
     if (rideId) {
       this.rideRepo.setIsLoading(true);
-
       const response = await this.apiGateway.getRideById(rideId);
 
       if (codeStatusChecker(response.status_code)) {
         if (response.data.ride.status === "active") {
           this.rideRepo.setIsSuccess(true);
-          const rideEntity = RideEntity.fromApiModel(response.data);
+          const rideEntity = RideEntity.fromApiModel(response.data.ride);
           this.rideRepo.setCurrentRide(rideEntity);
 
           const scooterResponse = await this.apiGateway.getScooterById(

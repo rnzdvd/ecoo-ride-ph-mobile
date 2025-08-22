@@ -1,6 +1,6 @@
 import { ILoginResponseModel } from "@/src/common/api/api-models";
 import BaseApiMappedEntity from "@/src/common/entities/base-api-mapped.entity";
-import { makeObservable, observable } from "mobx";
+import { action, makeObservable, observable } from "mobx";
 
 export default class AuthUserEntity extends BaseApiMappedEntity {
   constructor() {
@@ -12,6 +12,7 @@ export default class AuthUserEntity extends BaseApiMappedEntity {
       totalDistance: observable,
       totalRides: observable,
       accessToken: observable,
+      setAccessToken: action,
     });
   }
 
@@ -29,5 +30,9 @@ export default class AuthUserEntity extends BaseApiMappedEntity {
     this.totalDistance = data.total_distance;
     this.totalRides = data.total_rides;
     this.accessToken = data.access_token;
+  }
+
+  setAccessToken(token: string): void {
+    this.accessToken = token;
   }
 }

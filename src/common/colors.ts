@@ -23,4 +23,8 @@ export const Colors = {
   primaryDark: "#1E1E1E",
   offWhite: "#F4F4F4",
   mediumGray: "#7E7E7E",
+  lightSkyBlue: "#EAF2FF",
+  lightPastelGreen: "#E7F4E8",
+  lightBeige: "#FFF4E4",
+  pastelPink: "#FFE2E5",
 };

@@ -4,6 +4,7 @@ import HomeRepository from "@/src/home/interfaces/gateways/home.repository";
 import { IStore } from "../../../app/store";
 import ClearCurrentRideCase from "../../usecases/clear-current-ride/clear-current-ride.case";
 import EndRideCase from "../../usecases/end-ride/end-ride.case";
+import LoadRideHistoryCase from "../../usecases/load-ride-history/load-ride-history.case";
 import StartRideCase from "../../usecases/start-ride/start-ride.case";
 import RideRepository from "../gateways/ride.repository";
 
@@ -12,10 +13,10 @@ export default class RideController {
   private readonly startRideCase: StartRideCase;
   private readonly endRideCase: EndRideCase;
   private readonly clearCurrentRideCase: ClearCurrentRideCase;
+  private readonly loadRideHistoryCase: LoadRideHistoryCase;
 
   constructor(store: IStore) {
     this.store = store;
-
     const apiGateway = new ApiGateway(store);
     const rideRepo = new RideRepository(store);
     const storageRepo = new StorageRepository();
@@ -32,6 +33,11 @@ export default class RideController {
       homeRepo,
       storageRepo
     );
+    this.loadRideHistoryCase = new LoadRideHistoryCase(
+      apiGateway,
+      rideRepo,
+      homeRepo
+    );
   }
 
   async startRide(): Promise<void> {
@@ -44,5 +50,9 @@ export default class RideController {
 
   async clearCurrentRide(): Promise<void> {
     await this.clearCurrentRideCase.execute();
+  }
+
+  async loadRideHistory(): Promise<void> {
+    await this.loadRideHistoryCase.execute();
   }
 }

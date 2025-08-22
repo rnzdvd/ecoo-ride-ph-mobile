@@ -1,9 +1,9 @@
 import { StoreContext } from "@/src/app/store";
 import AppLoaderView from "@/src/common/ui/app-loader/app-loader.view";
+import { showToast } from "@/src/common/utils";
 import { Observer } from "mobx-react-lite";
 import React from "react";
 import { View } from "react-native";
-import Toast from "react-native-toast-message";
 import HomeController from "../../interfaces/controllers/home.controller";
 import HomePresenter from "../../interfaces/presenters/home.presenter";
 import HomeView from "./home.view";
@@ -36,10 +36,11 @@ const HomeContainer: React.FC<{
     }
 
     if (presenter.getRideErrorMessage()) {
-      Toast.show({
-        type: "error",
-        text1: presenter.getRideErrorMessage(),
-      });
+      showToast(
+        "Failed to Load Ride",
+        presenter.getRideErrorMessage(),
+        "error"
+      );
     }
   };
 

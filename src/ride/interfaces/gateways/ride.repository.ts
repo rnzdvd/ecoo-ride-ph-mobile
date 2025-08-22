@@ -36,4 +36,8 @@ export default class RideRepository {
   getCurrentRide(): RideEntity {
     return this.store.ride.currentRide;
   }
+
+  setRideHistory(rideHistory: RideEntity[]) {
+    this.store.ride.rideHistory = rideHistory;
+  }
 }

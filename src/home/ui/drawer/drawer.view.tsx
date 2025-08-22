@@ -12,6 +12,7 @@ const DrawerView: React.FC<{
   onNavigateToRegistration: () => void;
   onNavigateToBalance: () => void;
   onUserLogout: () => void;
+  onNavigateToRideHistory: () => void;
 }> = (props) => (
   <DrawerContentScrollView>
     {!props.isLoggedIn ? (
@@ -37,34 +38,30 @@ const DrawerView: React.FC<{
 
         <View style={styles.rideInfoContainer}>
           <View style={styles.rideInfoContainerSub}>
-            <Shadow style={{ borderRadius: 10, padding: 5 }} distance={5}>
+            <Shadow style={styles.shadowIconContainer} distance={5}>
               <Icon source="scooter" size={30} color={Colors.primaryColor} />
             </Shadow>
-            <View style={{ marginLeft: 10 }}>
+            <View style={styles.totalRidesContainer}>
               <Text style={styles.rideInfoLabel}>
                 {props.authUser.totalRides}
               </Text>
-              <Text style={{ fontSize: 10, color: Colors.semiDarkGrey }}>
-                Rides
-              </Text>
+              <Text style={styles.rideTextLabel}>Rides</Text>
             </View>
           </View>
 
           <View style={styles.rideInfoContainerSub}>
-            <Shadow style={{ borderRadius: 10, padding: 5 }} distance={5}>
+            <Shadow style={styles.shadowIconContainer} distance={5}>
               <Icon
                 source="map-marker-distance"
                 size={30}
                 color={Colors.primaryColor}
               />
             </Shadow>
-            <View style={{ marginLeft: 10 }}>
+            <View style={styles.totalRidesContainer}>
               <Text style={styles.rideInfoLabel}>
                 {props.authUser.totalDistance}km
               </Text>
-              <Text style={{ fontSize: 10, color: Colors.semiDarkGrey }}>
-                Distance
-              </Text>
+              <Text style={styles.rideTextLabel}>Distance</Text>
             </View>
           </View>
         </View>
@@ -80,7 +77,11 @@ const DrawerView: React.FC<{
             onPress={props.onNavigateToBalance}
           />
 
-          <Drawer.Item label="Ride History" icon="history" />
+          <Drawer.Item
+            label="Ride History"
+            icon="history"
+            onPress={props.onNavigateToRideHistory}
+          />
         </>
       )}
       <Drawer.Item label="Help" icon="cloud-question" />
@@ -146,5 +147,16 @@ const styles = StyleSheet.create({
   },
   rideInfoLabel: {
     fontWeight: "bold",
+  },
+  shadowIconContainer: {
+    borderRadius: 10,
+    padding: 5,
+  },
+  totalRidesContainer: {
+    marginLeft: 10,
+  },
+  rideTextLabel: {
+    fontSize: 10,
+    color: Colors.semiDarkGrey,
   },
 });

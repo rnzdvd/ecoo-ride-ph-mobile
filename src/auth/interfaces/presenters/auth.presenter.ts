@@ -31,4 +31,8 @@ export default class AuthPresenter {
   getAuthUser(): AuthUserEntity {
     return this.store.auth.authUser;
   }
+
+  isSessionExpired(): boolean {
+    return this.store.auth.isSessionExpired;
+  }
 }

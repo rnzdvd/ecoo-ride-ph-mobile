@@ -1,5 +1,5 @@
 import ApiGateway from "@/src/common/gateways/api.gateway";
-import { codeStatusChecker } from "@/src/common/utils";
+import { codeStatusChecker, delay } from "@/src/common/utils";
 import BalanceEntity from "../../entities/balance.entity";
 import AccountRepository from "../../interfaces/gateways/account.repository";
 
@@ -11,9 +11,8 @@ export default class LoadBalanceCase {
 
   async execute(): Promise<void> {
     this.accountRepo.setIsLoading(true);
-
+    await delay(2000);
     const response = await this.apiGateway.getBalance();
-
     if (codeStatusChecker(response.status_code)) {
       this.accountRepo.setBalance(BalanceEntity.fromApiModel(response.data));
     }

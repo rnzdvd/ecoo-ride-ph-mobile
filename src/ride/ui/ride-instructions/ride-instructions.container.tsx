@@ -1,9 +1,9 @@
 import { StoreContext } from "@/src/app/store";
 import AppLoaderView from "@/src/common/ui/app-loader/app-loader.view";
+import { showToast } from "@/src/common/utils";
 import { Observer } from "mobx-react-lite";
 import React from "react";
 import { View } from "react-native";
-import Toast from "react-native-toast-message";
 import RideController from "../../interfaces/controllers/ride.controller";
 import RidePresenter from "../../interfaces/presenters/ride.presenter";
 import RideInstructionsView from "./ride-instructions.view";
@@ -19,10 +19,11 @@ const RideInstructionsContainer: React.FC<{
     // Logic to start the ride goes here
     await controller.startRide();
     if (presenter.isSuccess()) {
-      Toast.show({
-        type: "success",
-        text1: "Ride Started Succesfully",
-      });
+      showToast(
+        "Ride Started Succesfully",
+        "Your ride has started.",
+        "success"
+      );
       props.onNavigateToRide();
     }
   };

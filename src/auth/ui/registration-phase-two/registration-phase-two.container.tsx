@@ -1,9 +1,9 @@
 import { StoreContext } from "@/src/app/store";
 import AppLoaderView from "@/src/common/ui/app-loader/app-loader.view";
+import { showToast } from "@/src/common/utils";
 import { Observer } from "mobx-react-lite";
 import React from "react";
 import { View } from "react-native";
-import Toast from "react-native-toast-message";
 import AuthController from "../../interfaces/controllers/auth.controller";
 import AuthPresenter from "../../interfaces/presenters/auth.presenter";
 import RegistrationPhaseTwoView from "./registration-phase-two.view";
@@ -27,7 +27,11 @@ const RegistrationPhaseTwoContainer: React.FC<{
         props.onNavigateToRegistration();
       }
     } else {
-      Toast.show({ text1: presenter.getErrorMessage(), type: "error" });
+      showToast(
+        "OTP Confirmation Failed",
+        presenter.getErrorMessage(),
+        "error"
+      );
     }
   };
 

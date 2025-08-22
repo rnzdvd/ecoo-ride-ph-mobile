@@ -1,4 +1,5 @@
 import { ScreenNames } from "@/src/app/screen-registry";
+import { Colors } from "@/src/common/colors";
 import React from "react";
 import AppScreen, { IScreenContainer } from "../../common/ui/app.screen";
 import RegistrationPhaseOneContainer from "../ui/registration-phase-one/registration-phase-one.container";
@@ -11,7 +12,7 @@ const RegistrationPhaseOneScreen: React.FC<IScreenContainer> = ({
       title="RegistrationPhaseOne"
       navigation={navigation}
       barStyle="dark-content"
-      statusBarBg="black"
+      statusBarBg={Colors.white}
     >
       <RegistrationPhaseOneContainer
         onNavigateToOtp={() =>

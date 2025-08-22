@@ -8,7 +8,7 @@ const ScanScreen: React.FC<IScreenContainer> = ({ navigation }) => {
     <AppScreen
       title="Scan"
       navigation={navigation}
-      barStyle="light-content"
+      barStyle="dark-content"
       statusBarBg="white"
     >
       <ScanContainer

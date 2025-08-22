@@ -1,11 +1,11 @@
 import { StoreContext } from "@/src/app/store";
 import AppLoaderView from "@/src/common/ui/app-loader/app-loader.view";
 import InfoModalView from "@/src/common/ui/info-modal/info-modal.view";
+import { showToast } from "@/src/common/utils";
 import * as ImagePicker from "expo-image-picker";
 import { Observer } from "mobx-react-lite";
 import React from "react";
 import { View } from "react-native";
-import Toast from "react-native-toast-message";
 import RideController from "../../interfaces/controllers/ride.controller";
 import RidePresenter from "../../interfaces/presenters/ride.presenter";
 import RideView from "./ride.view";
@@ -36,7 +36,11 @@ const RideContainer: React.FC<{
 
     if (presenter.isSuccess()) {
       props.onNavigateToHome();
-      Toast.show({ text1: "Ride Ended Successfully", type: "success" });
+      showToast(
+        "Ride Ended Successfully",
+        "You have ended your ride.",
+        "success"
+      );
     }
   };
 

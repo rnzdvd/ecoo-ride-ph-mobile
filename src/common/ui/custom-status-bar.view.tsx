@@ -3,14 +3,10 @@ import { ColorValue, StatusBar, StatusBarStyle, View } from "react-native";
 const CustomStatusBarView: React.FC<{
   backgroundColor: ColorValue;
   barStyle: StatusBarStyle;
-}> = ({ backgroundColor, barStyle }) => {
+}> = (props) => {
   return (
-    <View style={{ backgroundColor }}>
-      <StatusBar
-        translucent
-        barStyle={barStyle}
-        backgroundColor={backgroundColor}
-      />
+    <View style={{ backgroundColor: props.backgroundColor }}>
+      <StatusBar {...props} translucent />
     </View>
   );
 };

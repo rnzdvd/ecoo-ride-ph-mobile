@@ -39,4 +39,8 @@ export default class AuthRepository {
   getAuthUser(): AuthUserEntity {
     return this.store.auth.authUser;
   }
+
+  setIsSessionExpired(isSessionExpired: boolean) {
+    this.store.auth.isSessionExpired = isSessionExpired;
+  }
 }

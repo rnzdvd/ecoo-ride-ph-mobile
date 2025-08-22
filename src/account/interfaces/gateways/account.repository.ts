@@ -31,4 +31,8 @@ export default class AccountRepository {
   getCurrentPaymentMethod(): string {
     return this.store.account.currentPaymentMethod;
   }
+
+  setCurrentPaymentMethod(paymentMethod: string): void {
+    this.store.account.currentPaymentMethod = paymentMethod;
+  }
 }

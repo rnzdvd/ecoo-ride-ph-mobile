@@ -7,7 +7,7 @@ const LoginScreen: React.FC<IScreenContainer> = ({ navigation }) => {
     <AppScreen
       title="Login"
       navigation={navigation}
-      barStyle="light-content"
+      barStyle="dark-content"
       statusBarBg="white"
     >
       <LoginContainer />

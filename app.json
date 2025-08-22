@@ -1,14 +1,19 @@
 {
   "expo": {
-    "name": "ecoo-ride-ph",
+    "name": "Ecoo Ride PH",
     "slug": "ecoo-ride-ph",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "ecoorideph",
+    "scheme": "ecooridephapp",
+    "platforms": ["ios", "android"],
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "projectId": "5143db7d-87f5-4c01-8f07-57955380006c",
+     "notification": {
+      "icon": "./assets/images/notification-icon.png",
+      "color": "#ffffff"
+    },
     "splash": {
       "resizeMode": "cover",
       "backgroundColor": "#ffffff"
@@ -32,7 +37,9 @@
         "googleMaps": {
           "apiKey": "AIzaSyCvbyn62mH6SWGz1QnrCyQZ7UnJ9SNCYII"
         }
-      }
+      },
+      "package": "com.ecoorideph",
+      "googleServicesFile": "./google-services.json"
     },
     "web": {
       "bundler": "metro",
@@ -49,7 +56,8 @@
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
         }
-      ]
+      ],
+      "expo-notifications"
     ],
     "experiments": {
       "typedRoutes": true

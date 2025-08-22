@@ -74,16 +74,16 @@ export default RegistrationPhaseTwoView;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 30,
     backgroundColor: Colors.white,
   },
   subContainer: {
     flex: 1,
+    padding: 20,
   },
   titleText: {
     fontWeight: "bold",
     fontSize: 30,
-    marginTop: 70,
+    marginTop: 20,
   },
   descriptionText: {
     color: Colors.semiDarkGrey,
@@ -96,6 +96,7 @@ const styles = StyleSheet.create({
   continueButton: {
     padding: 5,
     borderRadius: 10,
+    margin: 20,
   },
   resentText: {
     color: Colors.mainBlue,

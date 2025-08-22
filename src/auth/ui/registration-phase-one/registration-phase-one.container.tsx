@@ -28,7 +28,6 @@ const RegistrationPhaseOneContainer: React.FC<{
         return (
           <View style={{ flex: 1 }}>
             <RegistrationPhaseOneView onRequestOtp={handleRequestOtp} />
-
             <AppLoaderView isVisible={presenter.isLoading()} />
           </View>
         );

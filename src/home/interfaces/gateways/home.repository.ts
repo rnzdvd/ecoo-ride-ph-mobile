@@ -47,4 +47,8 @@ export default class HomeRepository {
   setSelectedOption(selectedOption: string) {
     this.store.home.selectedOption = selectedOption;
   }
+
+  getScooters() {
+    return this.store.home.scooters;
+  }
 }

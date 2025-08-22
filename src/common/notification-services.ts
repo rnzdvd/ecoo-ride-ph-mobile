@@ -1,4 +1,3 @@
-import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
 import { Platform } from "react-native";
 
@@ -7,32 +6,27 @@ export async function registerForPushNotificationsAsync(): Promise<
 > {
   let token: string | undefined;
 
-  if (Device.isDevice) {
-    const { status: existingStatus } =
-      await Notifications.getPermissionsAsync();
+  const { status: existingStatus } = await Notifications.getPermissionsAsync();
 
-    let finalStatus = existingStatus;
+  let finalStatus = existingStatus;
 
-    if (existingStatus !== "granted") {
-      const { status } = await Notifications.requestPermissionsAsync();
-      finalStatus = status;
-    }
+  if (existingStatus !== "granted") {
+    const { status } = await Notifications.requestPermissionsAsync();
+    finalStatus = status;
+  }
 
-    if (finalStatus !== "granted") {
-      alert("Failed to get push token!");
-      return undefined;
-    }
+  if (finalStatus !== "granted") {
+    alert("Failed to get push token!");
+    return undefined;
+  }
 
-    try {
-      const tokenData = await Notifications.getExpoPushTokenAsync({
-        projectId: "5143db7d-87f5-4c01-8f07-57955380006c",
-      });
-      token = tokenData.data;
-    } catch (error) {
-      console.error("Error getting push token:", error);
-    }
-  } else {
-    alert("Must use physical device for push notifications");
+  try {
+    const tokenData = await Notifications.getExpoPushTokenAsync({
+      projectId: "5143db7d-87f5-4c01-8f07-57955380006c",
+    });
+    token = tokenData.data;
+  } catch {
+    token = "no token";
   }
 
   if (Platform.OS === "android") {

@@ -22,12 +22,10 @@ export default class StartRideCase {
       option: selectedOption,
     });
 
-    console.log("StartRideCase", JSON.stringify(response));
-
     if (codeStatusChecker(response.status_code)) {
       this.rideRepo.setIsSuccess(true);
 
-      const rideEntity = RideEntity.fromApiModel(response.data);
+      const rideEntity = RideEntity.fromApiModel(response.data.ride);
       this.rideRepo.setCurrentRide(rideEntity);
       await this.storageRepo.setItem(keys.rideId, rideEntity.id.toString());
     } else {

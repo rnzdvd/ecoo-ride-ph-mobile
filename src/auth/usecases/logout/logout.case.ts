@@ -15,6 +15,7 @@ export default class LogoutCase {
     await this.delay(1000);
     this.authRepo.setIsLoggedIn(false);
     this.authRepo.setAuthUser(new AuthUserEntity());
+    this.authRepo.setIsSessionExpired(false);
     await this.storageRepo.removeItem(keys.authUser);
     this.authRepo.setIsLoading(false);
   }

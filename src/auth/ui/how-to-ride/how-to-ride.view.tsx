@@ -20,7 +20,7 @@ const HowToRideView: React.FC<IHowToRideViewModel> = (props) => {
   const steps: ICarouselItem[] = [
     {
       content: (
-        <View style={{ alignItems: "center" }}>
+        <View style={styles.carouselItemContainer}>
           <Image
             source={require("../../../../assets/images/img_eleven.jpg")}
             style={styles.image}
@@ -46,7 +46,7 @@ const HowToRideView: React.FC<IHowToRideViewModel> = (props) => {
     },
     {
       content: (
-        <View style={{ alignItems: "center" }}>
+        <View style={styles.carouselItemContainer}>
           <Image
             source={require("../../../../assets/images/img_three.jpg")}
             style={styles.image}
@@ -74,7 +74,7 @@ const HowToRideView: React.FC<IHowToRideViewModel> = (props) => {
     },
     {
       content: (
-        <View style={{ alignItems: "center" }}>
+        <View style={styles.carouselItemContainer}>
           <Image
             source={require("../../../../assets/images/img_eight.jpg")}
             style={styles.image}
@@ -103,7 +103,7 @@ const HowToRideView: React.FC<IHowToRideViewModel> = (props) => {
     },
     {
       content: (
-        <View style={{ alignItems: "center" }}>
+        <View style={styles.carouselItemContainer}>
           <Image
             source={require("../../../../assets/images/img_five.jpg")}
             style={styles.image}
@@ -137,17 +137,8 @@ const HowToRideView: React.FC<IHowToRideViewModel> = (props) => {
 
   return (
     <View style={styles.container}>
-      <Text
-        style={{
-          fontSize: 50,
-          fontWeight: "bold",
-          color: Colors.primaryColor,
-          textAlign: "center",
-        }}
-      >
-        How to Ride
-      </Text>
-      <View style={{ flex: 1 }}>
+      <Text style={styles.titleText}>How to Ride</Text>
+      <View style={styles.carouselContainer}>
         <Carousel
           ref={carouselRef}
           onSnapToItem={setCurrentIndex}
@@ -155,15 +146,7 @@ const HowToRideView: React.FC<IHowToRideViewModel> = (props) => {
           height={500}
           data={steps}
           renderItem={({ item }) => (
-            <View
-              style={{
-                flex: 1,
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              {item.content}
-            </View>
+            <View style={styles.carouselContent}>{item.content}</View>
           )}
           autoPlay={false}
           loop={false}
@@ -174,7 +157,7 @@ const HowToRideView: React.FC<IHowToRideViewModel> = (props) => {
       <Button
         onPress={handleNext}
         mode="contained"
-        style={{ margin: 30, borderRadius: 10, padding: 5 }}
+        style={styles.continueButton}
       >
         CONTINUE
       </Button>
@@ -201,5 +184,27 @@ const styles = StyleSheet.create({
   image: {
     width: 100,
     height: 100,
+  },
+  carouselItemContainer: {
+    alignItems: "center",
+  },
+  titleText: {
+    fontSize: 50,
+    fontWeight: "bold",
+    color: Colors.primaryColor,
+    textAlign: "center",
+  },
+  carouselContainer: {
+    flex: 1,
+  },
+  carouselContent: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  continueButton: {
+    borderRadius: 10,
+    padding: 5,
+    margin: 20,
   },
 });

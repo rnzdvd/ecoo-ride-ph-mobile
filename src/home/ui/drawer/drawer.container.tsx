@@ -10,6 +10,7 @@ import { View } from "react-native";
 import DrawerView from "./drawer.view";
 
 const DrawerContainer: React.FC<DrawerContentComponentProps> = (props) => {
+  const { navigation } = props;
   const store = React.useContext(StoreContext);
   const controller = new AuthController(store);
   const presenter = new AuthPresenter(store);
@@ -24,10 +25,13 @@ const DrawerContainer: React.FC<DrawerContentComponentProps> = (props) => {
               isLoggedIn={presenter.isLoggedIn()}
               authUser={authUser}
               onNavigateToRegistration={() => {
-                props.navigation.navigate(ScreenNames.RegistrationPhaseOne);
+                navigation.navigate(ScreenNames.RegistrationPhaseOne);
               }}
               onNavigateToBalance={() => {
-                props.navigation.navigate(ScreenNames.BalanceScreen);
+                navigation.navigate(ScreenNames.BalanceScreen);
+              }}
+              onNavigateToRideHistory={() => {
+                navigation.navigate(ScreenNames.RideHistoryScreen);
               }}
               onUserLogout={() => {
                 controller.logout();

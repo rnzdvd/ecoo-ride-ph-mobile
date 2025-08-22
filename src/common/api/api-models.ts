@@ -33,20 +33,24 @@ export interface IScooterResponseModel {
   };
 }
 
+export interface IRideDetailsModel {
+  id: number;
+  user_id: number;
+  scooter_id: string;
+  started_at: string;
+  billed_intervals: number;
+  status: string;
+  option: string;
+  total_distance: number;
+  total_charged: number;
+  total_duration?: number;
+  ended_at?: string;
+  scooter_name?: string;
+}
+
 export interface IRideDetailsResponseModel {
   message: string;
-  ride: {
-    id: number;
-    user_id: number;
-    scooter_id: string;
-    started_at: string;
-    billed_intervals: number;
-    status: string;
-    option: string;
-    total_distance: number;
-    total_charged: number;
-    total_duration: number;
-  };
+  ride: IRideDetailsModel;
 }
 
 export interface IRequestPaymentResponseModel {

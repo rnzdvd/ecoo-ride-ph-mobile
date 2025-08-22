@@ -28,4 +28,8 @@ export default class RidePresenter {
   getScooter(): ScooterEntity {
     return this.store.home.scooter;
   }
+
+  getRideHistory(): RideEntity[] {
+    return this.store.ride.rideHistory;
+  }
 }

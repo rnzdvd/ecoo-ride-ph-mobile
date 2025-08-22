@@ -5,9 +5,11 @@ import {
   ILoginResponseModel,
   IRegisterResponseModel,
   IRequestPaymentResponseModel,
+  IRideDetailsModel,
   IRideDetailsResponseModel,
   IScooterResponseModel,
 } from "../api/api-models";
+import { BASE_URL } from "../config";
 
 export default class ApiGateway extends Api {
   private readonly store: IStore;
@@ -124,5 +126,40 @@ export default class ApiGateway extends Api {
     data: IRequestPaymentResponseModel;
   }> {
     return await this.post("api/request-payment", data);
+  }
+
+  async getRideHistory(): Promise<{
+    status_code: number;
+    data: IRideDetailsModel[];
+  }> {
+    return await this.get("api/get-ride-history");
+  }
+
+  async refreshToken(accessToken: string): Promise<{
+    access_token: string;
+    status_code: number;
+  }> {
+    const response = await fetch(BASE_URL + "api/auth/refresh", {
+      method: "POST",
+      headers: {
+        Authorization: "Bearer " + accessToken,
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (response.ok) {
+      const data = (await response.json()) as {
+        access_token: string;
+      };
+      return {
+        access_token: data.access_token,
+        status_code: response.status,
+      };
+    } else {
+      return {
+        access_token: accessToken,
+        status_code: response.status,
+      };
+    }
   }
 }

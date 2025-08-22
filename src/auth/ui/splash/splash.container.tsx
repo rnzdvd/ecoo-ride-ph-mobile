@@ -16,7 +16,7 @@ const SplashContainer: React.FC<{
     controller.checkLoginStatus();
     const timeoutId = setTimeout(() => {
       props.onNavigateToHome();
-    }, 2000);
+    }, 1000);
     return () => clearTimeout(timeoutId);
   });
 

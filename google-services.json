@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "150486833096",
+    "project_id": "ecoo-ride-ph-f70df",
+    "storage_bucket": "ecoo-ride-ph-f70df.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:150486833096:android:471bfdbb29b19bc30f92fd",
+        "android_client_info": {
+          "package_name": "com.ecoorideph"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD2V1fbDAz3A25trfjWE5yrVH9jzNxbH_k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
