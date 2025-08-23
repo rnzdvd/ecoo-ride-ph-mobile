@@ -34,7 +34,7 @@ export default class AuthController {
       authRepo,
       storageRepo
     );
-    this.logoutCase = new LogoutCase(authRepo, storageRepo);
+    this.logoutCase = new LogoutCase(apiGateway, authRepo, storageRepo);
   }
 
   async registerAccount(form: IRegistrationFormModel): Promise<void> {

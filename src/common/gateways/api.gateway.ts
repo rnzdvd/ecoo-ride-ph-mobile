@@ -135,6 +135,15 @@ export default class ApiGateway extends Api {
     return await this.get("api/get-ride-history");
   }
 
+  async logout(): Promise<{
+    status_code: number;
+    data: {
+      message: string;
+    };
+  }> {
+    return await this.post("api/logout");
+  }
+
   async refreshToken(accessToken: string): Promise<{
     access_token: string;
     status_code: number;

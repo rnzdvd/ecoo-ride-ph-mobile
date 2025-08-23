@@ -12,7 +12,7 @@ export default class RequestOtpCase {
     this.authRepo.setIsLoading(true);
 
     const response = await this.apiGateway.requestOtp(email);
-
+    console.log(response);
     this.authRepo.setIsSuccess(codeStatusChecker(response.status_code));
     this.authRepo.setEmailRegistered(email);
 

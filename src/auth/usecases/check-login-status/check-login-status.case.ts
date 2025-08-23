@@ -16,12 +16,13 @@ export default class CheckLoginStatusCase {
   async execute(): Promise<void> {
     const storedUser = await this.storageRepo.getItem(keys.authUser);
 
-    // refresh token everytime user open the app
+    // refresh the access token everytime user open the app to avoid premature token expiration
     if (storedUser) {
       this.authRepo.setIsLoggedIn(true);
       const parsedUser: ILoginResponseModel = JSON.parse(storedUser);
       const authUser = AuthUserEntity.fromApiModel(parsedUser);
       const response = await this.apiGateway.refreshToken(authUser.accessToken);
+
       if (codeStatusChecker(response.status_code)) {
         authUser.setAccessToken(response.access_token);
         parsedUser.access_token = response.access_token;
@@ -30,7 +31,6 @@ export default class CheckLoginStatusCase {
           JSON.stringify(parsedUser)
         );
       }
-
       this.authRepo.setAuthUser(authUser);
     } else {
       this.authRepo.setIsLoggedIn(false);
