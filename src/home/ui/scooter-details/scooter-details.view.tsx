@@ -2,9 +2,9 @@ import BalanceEntity from "@/src/account/entities/balance.entity";
 import { Colors } from "@/src/common/colors";
 import React from "react";
 import {
+  Pressable,
   StyleProp,
   StyleSheet,
-  TouchableWithoutFeedback,
   View,
   ViewStyle,
 } from "react-native";
@@ -77,7 +77,7 @@ const ScooterDetailsView: React.FC<IScooterDetailsViewModel> = (props) => {
         <View style={styles.bikeRentPriceParentContainer}>
           <Text style={styles.pricingDetailsLabel}>Pricing Details</Text>
 
-          <TouchableWithoutFeedback onPress={() => handleSelectOption("10min")}>
+          <Pressable onPress={() => handleSelectOption("10min")}>
             <View style={[styles.rentOptionContainer, selectedStyle("10min")]}>
               <Text
                 style={[
@@ -90,9 +90,9 @@ const ScooterDetailsView: React.FC<IScooterDetailsViewModel> = (props) => {
                 Rent it for 35 PHP for 10 mins
               </Text>
             </View>
-          </TouchableWithoutFeedback>
+          </Pressable>
 
-          <TouchableWithoutFeedback onPress={() => handleSelectOption("20min")}>
+          <Pressable onPress={() => handleSelectOption("20min")}>
             <View style={[styles.rentOptionContainer, selectedStyle("20min")]}>
               <Text
                 style={[
@@ -105,7 +105,7 @@ const ScooterDetailsView: React.FC<IScooterDetailsViewModel> = (props) => {
                 Rent it for 65 PHP for 20 mins
               </Text>
             </View>
-          </TouchableWithoutFeedback>
+          </Pressable>
         </View>
 
         <View style={styles.ridingRulesContainer}>

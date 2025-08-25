@@ -4,9 +4,9 @@ import React from "react";
 import {
   Image,
   ImageSourcePropType,
+  Pressable,
   StyleProp,
   StyleSheet,
-  TouchableWithoutFeedback,
   View,
   ViewStyle,
 } from "react-native";
@@ -62,43 +62,43 @@ const TopUpView: React.FC<ITopUpViewModel> = (props) => {
       <View style={styles.optionsContainer}>
         <Text style={styles.chooseAmountText}>Choose your top up amount</Text>
 
-        <TouchableWithoutFeedback onPress={() => setSelectedOption(200)}>
+        <Pressable onPress={() => setSelectedOption(200)}>
           <View style={[styles.optionContainer, selectedStyle(200)]}>
             <Text style={styles.amountText}>200.00 PHP</Text>
           </View>
-        </TouchableWithoutFeedback>
+        </Pressable>
 
-        <TouchableWithoutFeedback onPress={() => setSelectedOption(400)}>
+        <Pressable onPress={() => setSelectedOption(400)}>
           <View style={[styles.optionContainer, selectedStyle(400)]}>
             <Text style={styles.amountText}>400.00 PHP</Text>
           </View>
-        </TouchableWithoutFeedback>
+        </Pressable>
 
-        <TouchableWithoutFeedback onPress={() => setSelectedOption(500)}>
+        <Pressable onPress={() => setSelectedOption(500)}>
           <View style={[styles.optionContainer, selectedStyle(500)]}>
             <Text style={styles.amountText}>500.00 PHP</Text>
           </View>
-        </TouchableWithoutFeedback>
+        </Pressable>
 
-        <TouchableWithoutFeedback onPress={() => setSelectedOption(800)}>
+        <Pressable onPress={() => setSelectedOption(800)}>
           <View style={[styles.optionContainer, selectedStyle(800)]}>
             <Text style={styles.amountText}>800.00 PHP</Text>
           </View>
-        </TouchableWithoutFeedback>
+        </Pressable>
 
-        <TouchableWithoutFeedback onPress={() => setSelectedOption(1000)}>
+        <Pressable onPress={() => setSelectedOption(1000)}>
           <View style={[styles.optionContainer, selectedStyle(1000)]}>
             <Text style={styles.amountText}>1000.00 PHP</Text>
           </View>
-        </TouchableWithoutFeedback>
+        </Pressable>
       </View>
 
-      <TouchableWithoutFeedback onPress={props.onPaymentOptions}>
+      <Pressable onPress={props.onPaymentOptions}>
         <View style={styles.paymentMethodContainer}>
           <Image source={logoPath} style={styles.logo} resizeMode="contain" />
           <Text style={styles.paymentMethodText}>{props.paymentMethod}</Text>
         </View>
-      </TouchableWithoutFeedback>
+      </Pressable>
 
       <Text style={styles.noteText}>
         Please note: A {paymentFee}% transaction fee will be added to your

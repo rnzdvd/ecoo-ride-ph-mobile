@@ -1,24 +1,26 @@
 import { Colors } from "@/src/common/colors";
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { FlatList, Pressable, StyleSheet, View } from "react-native";
 import { Button, Icon, Text } from "react-native-paper";
 import { Shadow } from "react-native-shadow-2";
 import BalanceEntity from "../../entities/balance.entity";
+import CardEntity from "../../entities/card.entity";
+import CardItemView from "../card-item/card-item.view";
 
 interface IBalanceViewModel {
   onNavigateToTopUp: () => void;
+  onAddNewCard: () => void;
+  onRemoveCard: (card: CardEntity) => void;
   balanceEntity: BalanceEntity;
+  cards: CardEntity[];
 }
 
 const BalanceView: React.FC<IBalanceViewModel> = (props) => {
   return (
     <View style={styles.container}>
       <View style={styles.subContainer}>
-        <Text style={styles.paymentMethodText}>Payment Methods</Text>
-
-        <Text style={styles.addPaymentMethodText}>+ Add payment method</Text>
         <Shadow
-          distance={1}
+          distance={5}
           startColor={"#00000020"}
           containerStyle={styles.shadowContainer}
         >
@@ -32,6 +34,20 @@ const BalanceView: React.FC<IBalanceViewModel> = (props) => {
             </View>
           </View>
         </Shadow>
+
+        <Text style={styles.paymentMethodText}>Payment Methods</Text>
+
+        <Pressable onPress={props.onAddNewCard}>
+          <Text style={styles.addPaymentMethodText}>+ Add payment method</Text>
+        </Pressable>
+
+        <FlatList
+          style={{ flex: 1, marginTop: 10 }}
+          data={props.cards}
+          renderItem={({ item }) => (
+            <CardItemView card={item} onRemoveCard={props.onRemoveCard} />
+          )}
+        />
       </View>
 
       <Button
@@ -64,7 +80,7 @@ const styles = StyleSheet.create({
   shadowContainer: {
     width: "100%",
     zIndex: 1,
-    marginTop: 40,
+    marginTop: 5,
   },
   paymentMethodText: {
     color: Colors.darkGrey,

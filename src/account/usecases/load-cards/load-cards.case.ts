@@ -1,9 +1,9 @@
 import ApiGateway from "@/src/common/gateways/api.gateway";
 import { codeStatusChecker, delay } from "@/src/common/utils";
-import BalanceEntity from "../../entities/balance.entity";
+import CardEntity from "../../entities/card.entity";
 import AccountRepository from "../../interfaces/gateways/account.repository";
 
-export default class LoadBalanceCase {
+export default class LoadCardsCase {
   constructor(
     private readonly apiGateway: ApiGateway,
     private readonly accountRepo: AccountRepository
@@ -16,9 +16,11 @@ export default class LoadBalanceCase {
       await delay(2000);
     }
 
-    const response = await this.apiGateway.getBalance();
+    const response = await this.apiGateway.getCardList();
+
     if (codeStatusChecker(response.status_code)) {
-      this.accountRepo.setBalance(BalanceEntity.fromApiModel(response.data));
+      const cards = CardEntity.fromManyApiModels(response.data);
+      this.accountRepo.setCards(cards);
     }
 
     this.accountRepo.setIsLoading(false);

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { StoreContext } from "@/src/app/store";
 import AppHeaderView from "@/src/common/ui/app-header/app-header.view";
 import AppLoaderView from "@/src/common/ui/app-loader/app-loader.view";
@@ -40,7 +41,7 @@ const TopUpContainer: React.FC<{
 
   const handleDeepLink = async (url: string): Promise<void> => {
     if (url.includes("/success")) {
-      await controller.loadBalance();
+      await controller.loadBalance(true);
       showToast(
         "Payment Success",
         "Your wallet has been topped up successfully. If balance does not reflect, please restart the app",

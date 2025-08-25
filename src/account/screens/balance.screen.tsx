@@ -13,6 +13,7 @@ const BalanceScreen: React.FC<IScreenContainer> = ({ navigation }) => {
       statusBarBg={Colors.white}
     >
       <BalanceContainer
+        onAddNewCard={() => navigation.navigate(ScreenNames.AddCardScreen)}
         onNavigateToTopUp={() => navigation.navigate(ScreenNames.TopUpScreen)}
         onBack={navigation.goBack}
       />

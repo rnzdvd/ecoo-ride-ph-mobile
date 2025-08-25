@@ -1,5 +1,6 @@
 import { IStore } from "../../../app/store";
 import BalanceEntity from "../../entities/balance.entity";
+import CardEntity from "../../entities/card.entity";
 
 export default class AccountPresenter {
   private readonly store: IStore;
@@ -30,5 +31,13 @@ export default class AccountPresenter {
 
   getPaymentUrl(): string {
     return this.store.account.paymentUrl;
+  }
+
+  get3dsUrl(): string {
+    return this.store.account.threeDsUrl;
+  }
+
+  getCards(): CardEntity[] {
+    return this.store.account.cards;
   }
 }

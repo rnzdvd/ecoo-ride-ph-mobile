@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Xendit Fingerprint</title>
+  <script src="https://cdn.jsdelivr.net/npm/xendit-fingerprint-sdk-web/dist/xendit-fingerprint-sdk-web.js"></script>
+</head>
+<body>
+  <h3>Xendit Device Fingerprint</h3>
+  <pre id="output">Loading fingerprint...</pre>
+
+  <script>
+    async function initFingerprint() {
+      try {
+        // Initialize SDK with your public key
+        const sessionId = XenditFingerprintSDK.init({
+          apiKey: 'xnd_public_development_5qB0hROa0Aybx_18qxWsxDvAAANF4hKapnlLM4eJX3ZvKUke2Kn6ghRl1sKcqRW6', // Replace with your public key
+        });
+
+        // Perform scan to generate fingerprint
+        await XenditFingerprintSDK.scan();
+
+        // Print fingerprint/session ID to the page
+        window.ReactNativeWebView.postMessage(sessionId);
+      } catch (err) {
+        window.ReactNativeWebView.postMessage("Error: " + err.message);
+      }
+    }
+
+    window.onload = initFingerprint;
+  </script>
+</body>
+</html>

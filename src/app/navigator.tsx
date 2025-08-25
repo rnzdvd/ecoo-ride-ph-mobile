@@ -7,6 +7,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import { Observer } from "mobx-react-lite";
 import React from "react";
+import AddCardScreen from "../account/screens/add-card.screen";
 import BalanceScreen from "../account/screens/balance.screen";
 import PaymentOptionsScreen from "../account/screens/payment-options.screen";
 import TopUpScreen from "../account/screens/top-up.screen";
@@ -17,6 +18,7 @@ import RegistrationPhaseThreeScreen from "../auth/screens/registration-phase-thr
 import RegistrationPhaseTwoScreen from "../auth/screens/registration-phase-two.screen";
 import SplashScreen from "../auth/screens/splash.screen";
 import SessionContainer from "../auth/ui/session/session.container";
+import ThreeDsAuthScreen from "../common/screens/three-ds-auth.screen";
 import PushNotificationContainer from "../common/ui/push-notification/push-notification.container";
 import HomeScreen from "../home/screens/home.screen";
 import ScanScreen from "../home/screens/scan.screen";
@@ -103,6 +105,11 @@ const BaseStack: React.FC = () => (
     <Stack.Screen
       name={ScreenNames.RideHistoryScreen}
       component={RideHistoryScreen}
+    />
+    <Stack.Screen name={ScreenNames.AddCardScreen} component={AddCardScreen} />
+    <Stack.Screen
+      name={ScreenNames.ThreeDsAuthWebviewScreen}
+      component={ThreeDsAuthScreen}
     />
   </Stack.Navigator>
 );

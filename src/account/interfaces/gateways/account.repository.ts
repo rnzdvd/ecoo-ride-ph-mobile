@@ -1,5 +1,6 @@
 import { IStore } from "../../../app/store";
 import BalanceEntity from "../../entities/balance.entity";
+import CardEntity from "../../entities/card.entity";
 
 export default class AccountRepository {
   private readonly store: IStore;
@@ -34,5 +35,17 @@ export default class AccountRepository {
 
   setCurrentPaymentMethod(paymentMethod: string): void {
     this.store.account.currentPaymentMethod = paymentMethod;
+  }
+
+  set3dsUrl(threeDsUrl: string): void {
+    this.store.account.threeDsUrl = threeDsUrl;
+  }
+
+  setCards(cards: CardEntity[]): void {
+    this.store.account.cards = cards;
+  }
+
+  getCards(): CardEntity[] {
+    return this.store.account.cards;
   }
 }

@@ -72,6 +72,12 @@ const RegistrationPhaseThreeView: React.FC<IRegistrationPhaseThreeViewModel> = (
                 mode="outlined"
                 style={styles.input}
                 value={values.phone_number}
+                maxLength={10}
+                left={
+                  <TextInput.Icon
+                    icon={() => <Text style={{ fontSize: 16 }}>+63</Text>}
+                  />
+                }
                 onChangeText={(text) => setFieldValue("phone_number", text)}
               />
             </View>

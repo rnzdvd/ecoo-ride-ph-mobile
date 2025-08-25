@@ -1,11 +1,6 @@
 import { Colors } from "@/src/common/colors";
 import React from "react";
-import {
-  Image,
-  StyleSheet,
-  TouchableWithoutFeedback,
-  View,
-} from "react-native";
+import { Image, Pressable, StyleSheet, View } from "react-native";
 import { Button, Checkbox, Text } from "react-native-paper";
 
 interface IRideInstructionsViewModel {
@@ -47,7 +42,7 @@ const RideInstructionsView: React.FC<IRideInstructionsViewModel> = (props) => {
         </View>
       </View>
 
-      <TouchableWithoutFeedback
+      <Pressable
         onPress={() => {
           setChecked(!checked);
         }}
@@ -59,7 +54,7 @@ const RideInstructionsView: React.FC<IRideInstructionsViewModel> = (props) => {
             rules.
           </Text>
         </View>
-      </TouchableWithoutFeedback>
+      </Pressable>
 
       <Button
         disabled={!checked}

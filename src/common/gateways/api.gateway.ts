@@ -2,6 +2,8 @@ import { IStore } from "@/src/app/store";
 import { Api } from "../api/api";
 import {
   IAccountBalanceResponseModel,
+  ICardDetailsPayloadModel,
+  ICardListResponseModel,
   ILoginResponseModel,
   IRegisterResponseModel,
   IRequestPaymentResponseModel,
@@ -9,7 +11,7 @@ import {
   IRideDetailsResponseModel,
   IScooterResponseModel,
 } from "../api/api-models";
-import { BASE_URL } from "../config";
+import { BASE_URL, XENDIT_BASE_URL, XENDIT_PUBLIC_API_KEY } from "../config";
 
 export default class ApiGateway extends Api {
   private readonly store: IStore;
@@ -40,7 +42,11 @@ export default class ApiGateway extends Api {
     status_code: number;
     data: IRegisterResponseModel;
   }> {
-    return await this.post("api/register-user", data);
+    return await this.post("api/register-user", {
+      full_name: data.full_name,
+      email: data.email,
+      phone_number: `+63${data.phone_number}`,
+    });
   }
 
   async requestOtp(email: string): Promise<{
@@ -144,6 +150,28 @@ export default class ApiGateway extends Api {
     return await this.post("api/logout");
   }
 
+  async generateSessionId(): Promise<{
+    status_code: number;
+    data: {
+      session_id: string;
+    };
+  }> {
+    return await this.post("api/generate-session-id");
+  }
+
+  async getCardList(): Promise<{
+    status_code: number;
+    data: ICardListResponseModel[];
+  }> {
+    return await this.get("api/get-user-cards");
+  }
+
+  async removeCard(id: string): Promise<{
+    status_code: number;
+  }> {
+    return await this.post("api/remove-card", { id: id });
+  }
+
   async refreshToken(accessToken: string): Promise<{
     access_token: string;
     status_code: number;
@@ -167,6 +195,40 @@ export default class ApiGateway extends Api {
     } else {
       return {
         access_token: accessToken,
+        status_code: response.status,
+      };
+    }
+  }
+
+  async addCardAttempt(data: ICardDetailsPayloadModel): Promise<{
+    status_code: number;
+    action_url: string;
+  }> {
+    const token = btoa(`${XENDIT_PUBLIC_API_KEY}:`);
+
+    const response = await fetch(XENDIT_BASE_URL + "payment_with_session", {
+      method: "POST",
+      headers: {
+        Authorization: "Basic " + token,
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (response.ok) {
+      const data = (await response.json()) as {
+        message: string;
+        payment_token_id: string;
+        action_url: string;
+      };
+      return {
+        action_url: data.action_url,
+        status_code: response.status,
+      };
+    } else {
+      return {
+        action_url: "failed",
         status_code: response.status,
       };
     }

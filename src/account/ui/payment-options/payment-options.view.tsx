@@ -1,11 +1,6 @@
 import { Colors } from "@/src/common/colors";
 import React from "react";
-import {
-  Image,
-  StyleSheet,
-  TouchableWithoutFeedback,
-  View,
-} from "react-native";
+import { Image, Pressable, StyleSheet, View } from "react-native";
 import { Text } from "react-native-paper";
 
 interface IPaymentOptionsViewModel {
@@ -15,9 +10,7 @@ interface IPaymentOptionsViewModel {
 const PaymentOptionsView: React.FC<IPaymentOptionsViewModel> = (props) => {
   return (
     <View style={styles.container}>
-      <TouchableWithoutFeedback
-        onPress={() => props.onSelectPaymentMethod("GCASH")}
-      >
+      <Pressable onPress={() => props.onSelectPaymentMethod("GCASH")}>
         <View style={styles.paymentMethodContainer}>
           <Image
             source={require("../../../../assets/images/gcash_logo.png")}
@@ -26,11 +19,9 @@ const PaymentOptionsView: React.FC<IPaymentOptionsViewModel> = (props) => {
           />
           <Text style={styles.paymentMethodText}>GCASH</Text>
         </View>
-      </TouchableWithoutFeedback>
+      </Pressable>
 
-      <TouchableWithoutFeedback
-        onPress={() => props.onSelectPaymentMethod("PAYMAYA")}
-      >
+      <Pressable onPress={() => props.onSelectPaymentMethod("PAYMAYA")}>
         <View style={styles.paymentMethodContainer}>
           <Image
             source={require("../../../../assets/images/maya_logo.jpg")}
@@ -39,7 +30,7 @@ const PaymentOptionsView: React.FC<IPaymentOptionsViewModel> = (props) => {
           />
           <Text style={styles.paymentMethodText}>PAYMAYA</Text>
         </View>
-      </TouchableWithoutFeedback>
+      </Pressable>
     </View>
   );
 };

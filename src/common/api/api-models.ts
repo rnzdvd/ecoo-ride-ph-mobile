@@ -60,3 +60,31 @@ export interface IRequestPaymentResponseModel {
 export interface IPaymentActions {
   value: string;
 }
+
+export interface ICardDetailsPayloadModel {
+  card_number: string;
+  expiry_month: string;
+  expiry_year: string;
+  cvn: string;
+  cardholder_first_name: string;
+  cardholder_last_name: string;
+  cardholder_email: string;
+  cardholder_phone_number: string;
+  payment_session_id: string;
+  device: {
+    fingerprint: string;
+  };
+}
+
+export interface ICardListResponseModel {
+  id: number;
+  cardholder_first_name: string;
+  cardholder_last_name: string;
+  cardholder_email: string;
+  cardholder_phone_number: string;
+  network: string;
+  type: string;
+  payment_method_id: string;
+  last_4: string;
+  expiry_date: string;
+}
