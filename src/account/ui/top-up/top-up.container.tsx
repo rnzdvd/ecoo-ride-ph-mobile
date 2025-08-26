@@ -13,6 +13,7 @@ import TopUpView from "./top-up.view";
 const TopUpContainer: React.FC<{
   onBack: () => void;
   onNavigateToPaymentOptions: () => void;
+  onNavigateToPaymentGateway: () => void;
 }> = (props) => {
   const store = React.useContext(StoreContext);
   const presenter = new AccountPresenter(store);
@@ -22,7 +23,8 @@ const TopUpContainer: React.FC<{
     await controller.requestPayment(amount);
 
     if (presenter.isSuccess()) {
-      Linking.openURL(presenter.getPaymentUrl());
+      props.onNavigateToPaymentGateway();
+      // Linking.openURL(presenter.getPaymentUrl());
     }
   };
 
@@ -71,8 +73,8 @@ const TopUpContainer: React.FC<{
             <TopUpView
               balanceEntity={presenter.getBalance()}
               paymentMethod={presenter.getCurrentPaymentMethod()}
-              onTopUp={handleTopUp}
               onPaymentOptions={props.onNavigateToPaymentOptions}
+              onTopUp={handleTopUp}
             />
             <AppLoaderView isVisible={presenter.isLoading()} />
           </View>

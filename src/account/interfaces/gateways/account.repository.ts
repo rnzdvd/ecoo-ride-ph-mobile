@@ -1,6 +1,7 @@
 import { IStore } from "../../../app/store";
 import BalanceEntity from "../../entities/balance.entity";
 import CardEntity from "../../entities/card.entity";
+import EwalletEntity from "../../entities/ewallet.entity";
 
 export default class AccountRepository {
   private readonly store: IStore;
@@ -29,11 +30,11 @@ export default class AccountRepository {
     this.store.account.paymentUrl = paymentUrl;
   }
 
-  getCurrentPaymentMethod(): string {
+  getCurrentPaymentMethod(): EwalletEntity | CardEntity {
     return this.store.account.currentPaymentMethod;
   }
 
-  setCurrentPaymentMethod(paymentMethod: string): void {
+  setCurrentPaymentMethod(paymentMethod: EwalletEntity | CardEntity): void {
     this.store.account.currentPaymentMethod = paymentMethod;
   }
 
@@ -47,5 +48,17 @@ export default class AccountRepository {
 
   getCards(): CardEntity[] {
     return this.store.account.cards;
+  }
+
+  setEwallets(ewallets: EwalletEntity[]): void {
+    this.store.account.ewallets = ewallets;
+  }
+
+  setPaymentMethods(paymentMethods: (EwalletEntity | CardEntity)[]): void {
+    this.store.account.paymentMethods = paymentMethods;
+  }
+
+  getEwallets(): EwalletEntity[] {
+    return this.store.account.ewallets;
   }
 }

@@ -16,6 +16,9 @@ const TopUpScreen: React.FC<IScreenContainer> = ({ navigation }) => {
         onNavigateToPaymentOptions={() =>
           navigation.navigate(ScreenNames.PaymentOptionsScreen)
         }
+        onNavigateToPaymentGateway={() =>
+          navigation.navigate(ScreenNames.PaymentGatewayScreen)
+        }
       />
     </AppScreen>
   );

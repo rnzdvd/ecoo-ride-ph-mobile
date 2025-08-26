@@ -22,6 +22,7 @@ const BalanceContainer: React.FC<{
   const controller = new AccountController(store);
 
   React.useEffect(() => {
+    controller.loadEWallets();
     controller.loadCards();
   }, []);
 

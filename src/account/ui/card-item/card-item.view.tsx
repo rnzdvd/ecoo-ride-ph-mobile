@@ -6,7 +6,8 @@ import CardEntity from "../../entities/card.entity";
 
 interface ICardItemViewModel {
   card: CardEntity;
-  onRemoveCard: (card: CardEntity) => void;
+  onRemoveCard?: (card: CardEntity) => void;
+  onSelectCard?: (card: CardEntity) => void;
 }
 
 const CardItemView: React.FC<ICardItemViewModel> = (props) => {
@@ -52,25 +53,29 @@ const CardItemView: React.FC<ICardItemViewModel> = (props) => {
   };
 
   return (
-    <View style={styles.container}>
-      {displayCardBrand(card.network)}
-      <View style={{ marginLeft: 10, flex: 1 }}>
-        <Text style={{ fontWeight: "bold", fontSize: 16 }}>
-          **** **** {card.last4}
-        </Text>
+    <Pressable onPress={() => props.onSelectCard?.(card)}>
+      <View style={styles.container}>
+        {displayCardBrand(card.network)}
+        <View style={{ marginLeft: 10, flex: 1 }}>
+          <Text style={{ fontWeight: "bold", fontSize: 16 }}>
+            **** **** {card.last4}
+          </Text>
 
-        <Text style={{ marginTop: 5, fontSize: 12 }}>Type: {card.type}</Text>
-        <Text
-          style={{ marginTop: 5, fontSize: 12, color: Colors.semiDarkGrey }}
-        >
-          {card.expiryDate}
-        </Text>
+          <Text style={{ marginTop: 5, fontSize: 12 }}>Type: {card.type}</Text>
+          <Text
+            style={{ marginTop: 5, fontSize: 12, color: Colors.semiDarkGrey }}
+          >
+            {card.expiryDate}
+          </Text>
+        </View>
+
+        {props.onRemoveCard && (
+          <Pressable onPress={() => props.onRemoveCard?.(card)}>
+            <Icon source="delete-outline" size={30} color={Colors.red} />
+          </Pressable>
+        )}
       </View>
-
-      <Pressable onPress={() => props.onRemoveCard(card)}>
-        <Icon source="delete-outline" size={30} color={Colors.red} />
-      </Pressable>
-    </View>
+    </Pressable>
   );
 };
 
@@ -78,7 +83,7 @@ export default CardItemView;
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 5,
+    margin: 10,
     padding: 10,
     borderRadius: 10,
     borderWidth: 1,

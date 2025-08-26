@@ -1,36 +1,40 @@
 import { Colors } from "@/src/common/colors";
 import React from "react";
-import { Image, Pressable, StyleSheet, View } from "react-native";
-import { Text } from "react-native-paper";
+import { StyleSheet, View } from "react-native";
+import { FlatList } from "react-native-gesture-handler";
+import CardEntity from "../../entities/card.entity";
+import EwalletEntity from "../../entities/ewallet.entity";
+import CardItemView from "../card-item/card-item.view";
+import EWalletItemView from "../e-wallet-item/e-wallet-item.view";
 
 interface IPaymentOptionsViewModel {
-  onSelectPaymentMethod: (paymentMethod: string) => void;
+  onSelectPaymentMethod: (paymentMethod: EwalletEntity | CardEntity) => void;
+  paymentOptions: (EwalletEntity | CardEntity)[];
 }
 
 const PaymentOptionsView: React.FC<IPaymentOptionsViewModel> = (props) => {
   return (
     <View style={styles.container}>
-      <Pressable onPress={() => props.onSelectPaymentMethod("GCASH")}>
-        <View style={styles.paymentMethodContainer}>
-          <Image
-            source={require("../../../../assets/images/gcash_logo.png")}
-            style={styles.logo}
-            resizeMode="contain"
-          />
-          <Text style={styles.paymentMethodText}>GCASH</Text>
-        </View>
-      </Pressable>
-
-      <Pressable onPress={() => props.onSelectPaymentMethod("PAYMAYA")}>
-        <View style={styles.paymentMethodContainer}>
-          <Image
-            source={require("../../../../assets/images/maya_logo.jpg")}
-            style={styles.logo}
-            resizeMode="contain"
-          />
-          <Text style={styles.paymentMethodText}>PAYMAYA</Text>
-        </View>
-      </Pressable>
+      <FlatList
+        data={props.paymentOptions}
+        renderItem={({ item }) => {
+          if (item instanceof EwalletEntity) {
+            return (
+              <EWalletItemView
+                ewallet={item}
+                onSelectEwallet={props.onSelectPaymentMethod}
+              />
+            );
+          } else {
+            return (
+              <CardItemView
+                card={item}
+                onSelectCard={props.onSelectPaymentMethod}
+              />
+            );
+          }
+        }}
+      />
     </View>
   );
 };

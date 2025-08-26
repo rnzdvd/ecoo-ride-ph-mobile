@@ -15,6 +15,9 @@ export default class CardEntity extends BaseApiMappedEntity {
       type: observable,
       paymentMethodId: observable,
       last4: observable,
+      percentageFee: observable,
+      cardLogo: observable,
+      fixedFee: observable,
     });
   }
 
@@ -28,6 +31,9 @@ export default class CardEntity extends BaseApiMappedEntity {
   paymentMethodId: string = "";
   last4: string = "";
   expiryDate: string = "";
+  percentageFee: number = 3.2;
+  fixedFee = 10;
+  cardLogo: string = "";
 
   setFromApiModel(data: ICardListResponseModel): void {
     this.id = data.id;

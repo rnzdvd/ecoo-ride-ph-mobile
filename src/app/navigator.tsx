@@ -9,6 +9,7 @@ import { Observer } from "mobx-react-lite";
 import React from "react";
 import AddCardScreen from "../account/screens/add-card.screen";
 import BalanceScreen from "../account/screens/balance.screen";
+import PaymentGatewayScreen from "../account/screens/payment-gateway.screen";
 import PaymentOptionsScreen from "../account/screens/payment-options.screen";
 import TopUpScreen from "../account/screens/top-up.screen";
 import HowToRideScreen from "../auth/screens/how-to-ride.screen";
@@ -110,6 +111,10 @@ const BaseStack: React.FC = () => (
     <Stack.Screen
       name={ScreenNames.ThreeDsAuthWebviewScreen}
       component={ThreeDsAuthScreen}
+    />
+    <Stack.Screen
+      name={ScreenNames.PaymentGatewayScreen}
+      component={PaymentGatewayScreen}
     />
   </Stack.Navigator>
 );

@@ -1,6 +1,7 @@
 import { makeAutoObservable } from "mobx";
 import BalanceEntity from "./balance.entity";
 import CardEntity from "./card.entity";
+import EwalletEntity from "./ewallet.entity";
 
 export default class AccountStore {
   constructor() {
@@ -9,10 +10,12 @@ export default class AccountStore {
 
   balance: BalanceEntity = new BalanceEntity();
   cards: CardEntity[] = [];
+  ewallets: EwalletEntity[] = [];
+  paymentMethods: (EwalletEntity | CardEntity)[] = [];
   isSuccess: boolean = false;
   isLoading: boolean = false;
   errorMessage: string = "";
-  currentPaymentMethod: string = "GCASH";
+  currentPaymentMethod: EwalletEntity | CardEntity = new EwalletEntity();
   paymentUrl: string = "";
   threeDsUrl: string = "";
 }

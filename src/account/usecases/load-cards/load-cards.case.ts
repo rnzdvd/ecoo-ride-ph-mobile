@@ -13,7 +13,7 @@ export default class LoadCardsCase {
     this.accountRepo.setIsLoading(true);
 
     if (withDelay) {
-      await delay(2000);
+      await delay(5000);
     }
 
     const response = await this.apiGateway.getCardList();

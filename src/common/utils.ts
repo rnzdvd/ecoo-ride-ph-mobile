@@ -95,3 +95,8 @@ export function showToast(
     },
   });
 }
+
+export const walletLogos: Record<string, any> = {
+  GCASH: require("../../assets/images/gcash_logo.png"),
+  PAYMAYA: require("../../assets/images/maya_logo.jpg"),
+};

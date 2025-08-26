@@ -2,8 +2,6 @@ import { Colors } from "@/src/common/colors";
 import { calculateChargeAmount } from "@/src/common/utils";
 import React from "react";
 import {
-  Image,
-  ImageSourcePropType,
   Pressable,
   StyleProp,
   StyleSheet,
@@ -12,18 +10,21 @@ import {
 } from "react-native";
 import { Button, Text } from "react-native-paper";
 import BalanceEntity from "../../entities/balance.entity";
+import CardEntity from "../../entities/card.entity";
+import EwalletEntity from "../../entities/ewallet.entity";
+import CardItemView from "../card-item/card-item.view";
+import EWalletItemView from "../e-wallet-item/e-wallet-item.view";
 
 interface ITopUpViewModel {
   balanceEntity: BalanceEntity;
-  paymentMethod: string;
+  paymentMethod: EwalletEntity | CardEntity;
   onTopUp: (amount: number) => void;
   onPaymentOptions: () => void;
 }
 
 const TopUpView: React.FC<ITopUpViewModel> = (props) => {
+  const { paymentMethod } = props;
   const [selectedOption, setSelectedOption] = React.useState<number>(200);
-  let logoPath: ImageSourcePropType = require("../../../../assets/images/gcash_logo.png");
-  let paymentFee: number = 0;
   const selectedStyle = (option: number): StyleProp<ViewStyle> => {
     if (selectedOption === option) {
       return {
@@ -34,14 +35,6 @@ const TopUpView: React.FC<ITopUpViewModel> = (props) => {
 
     return {};
   };
-
-  if (props.paymentMethod === "GCASH") {
-    logoPath = require("../../../../assets/images/gcash_logo.png");
-    paymentFee = 2.3;
-  } else if (props.paymentMethod === "PAYMAYA") {
-    paymentFee = 2.0;
-    logoPath = require("../../../../assets/images/maya_logo.jpg");
-  }
 
   return (
     <View style={styles.container}>
@@ -93,23 +86,43 @@ const TopUpView: React.FC<ITopUpViewModel> = (props) => {
         </Pressable>
       </View>
 
-      <Pressable onPress={props.onPaymentOptions}>
-        <View style={styles.paymentMethodContainer}>
-          <Image source={logoPath} style={styles.logo} resizeMode="contain" />
-          <Text style={styles.paymentMethodText}>{props.paymentMethod}</Text>
+      {paymentMethod instanceof EwalletEntity ? (
+        <View>
+          <EWalletItemView
+            ewallet={paymentMethod}
+            onSelectEwallet={props.onPaymentOptions}
+          />
+          <Text style={styles.noteText}>
+            Please note: A {paymentMethod.percentageFee}% transaction fee will
+            be added to your payment, and you will be responsible for covering
+            this fee.
+          </Text>
         </View>
-      </Pressable>
-
-      <Text style={styles.noteText}>
-        Please note: A {paymentFee}% transaction fee will be added to your
-        payment, and you will be responsible for covering this fee.
-      </Text>
+      ) : (
+        <View>
+          <CardItemView
+            card={paymentMethod}
+            onSelectCard={props.onPaymentOptions}
+          />
+          <Text style={styles.noteText}>
+            Please note: A {paymentMethod.percentageFee}% and P
+            {paymentMethod.fixedFee} transaction fee will be added to your
+            payment, and you will be responsible for covering this fee.
+          </Text>
+        </View>
+      )}
 
       <Button
         mode="contained"
         style={styles.topUpButton}
         onPress={() =>
-          props.onTopUp(calculateChargeAmount(selectedOption, paymentFee / 100))
+          props.onTopUp(
+            calculateChargeAmount(
+              selectedOption,
+              paymentMethod.percentageFee / 100,
+              paymentMethod.fixedFee
+            )
+          )
         }
       >
         CONTINUE

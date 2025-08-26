@@ -9,11 +9,11 @@ export default class LoadBalanceCase {
     private readonly accountRepo: AccountRepository
   ) {}
 
-  async execute(withDelay: boolean = false): Promise<void> {
+  async execute(withDelay?: boolean): Promise<void> {
     this.accountRepo.setIsLoading(true);
 
     if (withDelay) {
-      await delay(2000);
+      await delay(5000);
     }
 
     const response = await this.apiGateway.getBalance();

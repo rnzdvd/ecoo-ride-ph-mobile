@@ -1,6 +1,7 @@
 import { IStore } from "../../../app/store";
 import BalanceEntity from "../../entities/balance.entity";
 import CardEntity from "../../entities/card.entity";
+import EwalletEntity from "../../entities/ewallet.entity";
 
 export default class AccountPresenter {
   private readonly store: IStore;
@@ -25,7 +26,7 @@ export default class AccountPresenter {
     return this.store.account.errorMessage;
   }
 
-  getCurrentPaymentMethod(): string {
+  getCurrentPaymentMethod(): EwalletEntity | CardEntity {
     return this.store.account.currentPaymentMethod;
   }
 
@@ -39,5 +40,9 @@ export default class AccountPresenter {
 
   getCards(): CardEntity[] {
     return this.store.account.cards;
+  }
+
+  getPaymentMethods(): (EwalletEntity | CardEntity)[] {
+    return this.store.account.paymentMethods;
   }
 }
