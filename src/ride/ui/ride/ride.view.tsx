@@ -24,6 +24,8 @@ const RideView: React.FC<IRideViewModel> = (props) => {
   const [location, setLocation] = useState<Location.LocationObject | null>(
     null
   );
+
+  console.log("rideEntity", props.rideEntity.totalDuration);
   const [loading, setLoading] = useState<boolean>(true);
   const [timer, setTimer] = useState<number>(props.rideEntity.totalDuration);
   const timerRef = useRef<number | null>(null);

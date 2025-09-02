@@ -8,17 +8,29 @@ import SplashView from "./splash.view";
 const SplashContainer: React.FC<{
   onNavigateToHome: () => void;
 }> = (props) => {
+  const timeoutId = React.useRef<number | null>(null);
   const store = React.useContext(StoreContext);
   const controller = new AuthController(store);
 
   React.useEffect(() => {
     callPushNotifications();
-    controller.checkLoginStatus();
-    const timeoutId = setTimeout(() => {
+    handleLoginStatus();
+
+    return () => {
+      if (timeoutId.current) {
+        clearTimeout(timeoutId.current);
+      }
+    };
+  });
+
+  const handleLoginStatus = async (): Promise<void> => {
+    await controller.checkLoginStatus();
+
+    // Set a new timeout for navigation
+    timeoutId.current = setTimeout(() => {
       props.onNavigateToHome();
     }, 1000);
-    return () => clearTimeout(timeoutId);
-  });
+  };
 
   const callPushNotifications = async (): Promise<void> => {
     await registerForPushNotificationsAsync();

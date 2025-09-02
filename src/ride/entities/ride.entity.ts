@@ -39,7 +39,7 @@ export default class RideEntity extends BaseApiMappedEntity {
     this.option = data.option;
     this.totalDistance = data.total_distance;
     this.totalCharged = data.total_charged;
-    if (data.total_duration) {
+    if (data.total_duration === 0) {
       this.totalDuration = Math.ceil(data.total_duration);
     } else {
       this.totalDuration = getGapSeconds(this.startedAt, data.ended_at);

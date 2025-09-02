@@ -6,7 +6,7 @@
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "ecooridephapp",
-    "platforms": ["ios", "android"],
+    "platforms": ["ios", "android", "web"],
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "projectId": "5143db7d-87f5-4c01-8f07-57955380006c",

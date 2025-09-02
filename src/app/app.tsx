@@ -36,6 +36,10 @@ const firstStore = getStore();
 
 const theme = {
   ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: Colors.primaryColor,
+  },
   fonts: {
     ...DefaultTheme.fonts,
     bodyLarge: {

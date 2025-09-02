@@ -1,6 +1,11 @@
 import Toast from "react-native-toast-message";
 
 export function formatSeconds(seconds: number): string {
+  console.log(seconds);
+  if (seconds <= 0) {
+    return "00m:00s";
+  }
+
   const mins = Math.floor(seconds / 60);
   const secs = seconds % 60;
 
