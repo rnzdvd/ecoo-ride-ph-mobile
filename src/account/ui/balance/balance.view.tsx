@@ -42,7 +42,7 @@ const BalanceView: React.FC<IBalanceViewModel> = (props) => {
         </Pressable>
 
         <FlatList
-          style={{ flex: 1, marginTop: 10 }}
+          style={styles.cardList}
           data={props.cards}
           renderItem={({ item }) => (
             <CardItemView card={item} onRemoveCard={props.onRemoveCard} />
@@ -107,5 +107,9 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
     margin: 20,
+  },
+  cardList: {
+    flex: 1,
+    marginTop: 10,
   },
 });

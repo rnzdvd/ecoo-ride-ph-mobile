@@ -18,7 +18,7 @@ interface IContainerViewModel {
 }
 
 const Container: React.FC<IContainerViewModel> = (props) => (
-  <View style={{ flex: 1 }}>
+  <View style={styles.container}>
     <CustomStatusBarView
       barStyle={props.barStyle}
       backgroundColor={props.statusBarBg}

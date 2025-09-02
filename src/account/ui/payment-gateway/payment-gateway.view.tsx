@@ -15,7 +15,7 @@ const PaymentGatewayView: React.FC<IPaymentGatewayViewModel> = (props) => {
     <View style={styles.container}>
       {!hide && (
         <WebView
-          style={{ flex: 1 }}
+          style={styles.container}
           originWhitelist={["*"]}
           javaScriptEnabled={true}
           source={{ uri: props.paymentUrl }}

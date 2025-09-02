@@ -75,7 +75,7 @@ const RegistrationPhaseThreeView: React.FC<IRegistrationPhaseThreeViewModel> = (
                 maxLength={10}
                 left={
                   <TextInput.Icon
-                    icon={() => <Text style={{ fontSize: 16 }}>+63</Text>}
+                    icon={() => <Text style={styles.countryCodeText}>+63</Text>}
                   />
                 }
                 onChangeText={(text) => setFieldValue("phone_number", text)}
@@ -138,5 +138,8 @@ const styles = StyleSheet.create({
   subContainer: {
     flex: 1,
     padding: 20,
+  },
+  countryCodeText: {
+    fontSize: 16,
   },
 });

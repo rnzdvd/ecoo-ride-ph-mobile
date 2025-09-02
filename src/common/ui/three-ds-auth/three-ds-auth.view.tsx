@@ -15,7 +15,7 @@ const ThreeDsAuthView: React.FC<IThreeDsAuthViewModel> = (props) => {
     <View style={styles.container}>
       {!hide && (
         <WebView
-          style={{ flex: 1 }}
+          style={styles.container}
           originWhitelist={["*"]}
           javaScriptEnabled={true}
           source={{ uri: props.threeDsUrl }}

@@ -79,14 +79,14 @@ const AddCardView: React.FC<IAddCardViewModel> = (props) => {
                 <Image
                   source={require("@/assets/images/visa_logo.png")}
                   resizeMode="contain"
-                  style={{ width: 24, height: 24 }}
+                  style={styles.cardImage}
                 />
               );
             case "mastercard":
               return (
                 <Image
                   source={require("@/assets/images/master_card.png")}
-                  style={{ width: 24, height: 24 }}
+                  style={styles.cardImage}
                   resizeMode="contain"
                 />
               );
@@ -94,7 +94,7 @@ const AddCardView: React.FC<IAddCardViewModel> = (props) => {
               return (
                 <Image
                   source={require("@/assets/images/amex_logo.jpg")}
-                  style={{ width: 24, height: 24 }}
+                  style={styles.cardImage}
                   resizeMode="contain"
                 />
               );
@@ -102,7 +102,7 @@ const AddCardView: React.FC<IAddCardViewModel> = (props) => {
               return (
                 <Image
                   source={require("@/assets/images/jcb_logo.jpg")}
-                  style={{ width: 24, height: 24 }}
+                  style={styles.cardImage}
                   resizeMode="contain"
                 />
               );
@@ -129,7 +129,7 @@ const AddCardView: React.FC<IAddCardViewModel> = (props) => {
               <ScrollView>
                 <View style={styles.subContainer}>
                   <TextInput
-                    style={{ marginTop: 10 }}
+                    style={styles.textInput}
                     label="Card Holder First Name"
                     mode="outlined"
                     value={values.card_holder_first_name}
@@ -139,7 +139,7 @@ const AddCardView: React.FC<IAddCardViewModel> = (props) => {
                   />
 
                   <TextInput
-                    style={{ marginTop: 10 }}
+                    style={styles.textInput}
                     label="Card Holder Last Name"
                     mode="outlined"
                     value={values.card_holder_last_name}
@@ -151,7 +151,7 @@ const AddCardView: React.FC<IAddCardViewModel> = (props) => {
                   <TextInput
                     placeholder="1234 5678 9012 3456"
                     inputMode="numeric"
-                    style={{ marginTop: 10 }}
+                    style={styles.textInput}
                     label="Card Number"
                     mode="outlined"
                     value={values.card_number}
@@ -162,22 +162,16 @@ const AddCardView: React.FC<IAddCardViewModel> = (props) => {
                   />
 
                   {errors.card_number && (
-                    <Text style={{ color: "red", marginTop: 5 }}>
+                    <Text style={styles.cardErrorText}>
                       {errors.card_number as string}
                     </Text>
                   )}
 
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      justifyContent: "space-between",
-                      marginTop: 10,
-                    }}
-                  >
+                  <View style={styles.cardDetailsContainer}>
                     <TextInput
                       maxLength={3}
                       inputMode="numeric"
-                      style={{ flex: 1, marginRight: 15 }}
+                      style={styles.cvvInput}
                       label="CVV"
                       mode="outlined"
                       value={values.cvv}
@@ -186,7 +180,7 @@ const AddCardView: React.FC<IAddCardViewModel> = (props) => {
 
                     <TextInput
                       inputMode="numeric"
-                      style={{ flex: 1 }}
+                      style={styles.expiryDateInput}
                       label="Expiry Date (MM/YY)"
                       mode="outlined"
                       maxLength={5}
@@ -240,5 +234,28 @@ const styles = StyleSheet.create({
   subContainer: {
     flex: 1,
     padding: 20,
+  },
+  cardImage: {
+    width: 24,
+    height: 24,
+  },
+  textInput: {
+    marginTop: 10,
+  },
+  cardErrorText: {
+    color: "red",
+    marginTop: 5,
+  },
+  cardDetailsContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 10,
+  },
+  cvvInput: {
+    flex: 1,
+    marginRight: 15,
+  },
+  expiryDateInput: {
+    flex: 1,
   },
 });

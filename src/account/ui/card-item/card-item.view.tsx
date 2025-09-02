@@ -20,14 +20,14 @@ const CardItemView: React.FC<ICardItemViewModel> = (props) => {
           <Image
             source={require("@/assets/images/visa_logo.png")}
             resizeMode="contain"
-            style={{ width: 40, height: 40 }}
+            style={styles.cardImage}
           />
         );
       case "mastercard":
         return (
           <Image
             source={require("@/assets/images/master_card.png")}
-            style={{ width: 40, height: 40 }}
+            style={styles.cardImage}
             resizeMode="contain"
           />
         );
@@ -35,7 +35,7 @@ const CardItemView: React.FC<ICardItemViewModel> = (props) => {
         return (
           <Image
             source={require("@/assets/images/amex_logo.jpg")}
-            style={{ width: 40, height: 40 }}
+            style={styles.cardImage}
             resizeMode="contain"
           />
         );
@@ -43,7 +43,7 @@ const CardItemView: React.FC<ICardItemViewModel> = (props) => {
         return (
           <Image
             source={require("@/assets/images/jcb_logo.jpg")}
-            style={{ width: 40, height: 40 }}
+            style={styles.cardImage}
             resizeMode="contain"
           />
         );
@@ -56,17 +56,11 @@ const CardItemView: React.FC<ICardItemViewModel> = (props) => {
     <Pressable onPress={() => props.onSelectCard?.(card)}>
       <View style={styles.container}>
         {displayCardBrand(card.network)}
-        <View style={{ marginLeft: 10, flex: 1 }}>
-          <Text style={{ fontWeight: "bold", fontSize: 16 }}>
-            **** **** {card.last4}
-          </Text>
+        <View style={styles.cardDetailsContainer}>
+          <Text style={styles.cardNumberText}>**** **** {card.last4}</Text>
 
-          <Text style={{ marginTop: 5, fontSize: 12 }}>Type: {card.type}</Text>
-          <Text
-            style={{ marginTop: 5, fontSize: 12, color: Colors.semiDarkGrey }}
-          >
-            {card.expiryDate}
-          </Text>
+          <Text style={styles.cardTypeText}>Type: {card.type}</Text>
+          <Text style={styles.expiryDateText}>{card.expiryDate}</Text>
         </View>
 
         {props.onRemoveCard && (
@@ -90,5 +84,26 @@ const styles = StyleSheet.create({
     borderColor: Colors.lightGrey,
     flexDirection: "row",
     alignItems: "center",
+  },
+  cardImage: {
+    width: 40,
+    height: 40,
+  },
+  cardDetailsContainer: {
+    marginLeft: 10,
+    flex: 1,
+  },
+  cardNumberText: {
+    fontWeight: "bold",
+    fontSize: 16,
+  },
+  cardTypeText: {
+    marginTop: 5,
+    fontSize: 12,
+  },
+  expiryDateText: {
+    marginTop: 5,
+    fontSize: 12,
+    color: Colors.semiDarkGrey,
   },
 });
