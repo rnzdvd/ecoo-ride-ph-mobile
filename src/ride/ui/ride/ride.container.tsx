@@ -1,7 +1,7 @@
 import { StoreContext } from "@/src/app/store";
 import AppLoaderView from "@/src/common/ui/app-loader/app-loader.view";
 import InfoModalView from "@/src/common/ui/info-modal/info-modal.view";
-import { showToast } from "@/src/common/utils";
+import { delay, showToast } from "@/src/common/utils";
 import * as ImagePicker from "expo-image-picker";
 import { Observer } from "mobx-react-lite";
 import React from "react";
@@ -18,6 +18,14 @@ const RideContainer: React.FC<{
   const controller = new RideController(store);
   const presenter = new RidePresenter(store);
 
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      controller.loadRideDistanceById();
+    }, 60000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   const openCamera = async (): Promise<void> => {
     const result = await ImagePicker.launchCameraAsync({
       allowsEditing: true,
@@ -25,8 +33,9 @@ const RideContainer: React.FC<{
     });
 
     if (!result.canceled && result.assets && result.assets.length > 0) {
-      const uri = result.assets[0].uri;
       setShowModal(false);
+      const uri = result.assets[0].uri;
+      await delay(500);
       handleEndRide(uri);
     }
   };
@@ -54,7 +63,11 @@ const RideContainer: React.FC<{
               rideEntity={presenter.getCurrentRide()}
               scooterEntity={presenter.getScooter()}
             />
-            <InfoModalView isVisible={showModal} onButtonClicked={openCamera} />
+            <InfoModalView
+              isVisible={showModal}
+              onButtonClicked={openCamera}
+              onCloseModal={() => setShowModal(false)}
+            />
 
             <AppLoaderView isVisible={presenter.isLoading()} />
           </View>

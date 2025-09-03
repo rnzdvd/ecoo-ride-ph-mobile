@@ -4,6 +4,7 @@ import { IStore } from "../../../app/store";
 import { IRegistrationFormModel } from "../../ui/registration-phase-three/registration-phase-three.view";
 import CheckLoginStatusCase from "../../usecases/check-login-status/check-login-status.case";
 import ConfirmOtpCase from "../../usecases/confirm-otp/confirm-otp.case";
+import LoadUserStatsCase from "../../usecases/load-user-stats/load-user-stats.case";
 import LogoutCase from "../../usecases/logout/logout.case";
 import RegisterAccountCase from "../../usecases/register-account/register-account.case";
 import RequestOtpCase from "../../usecases/request-otp/request-otp.case";
@@ -16,6 +17,7 @@ export default class AuthController {
   private readonly confirmOtpCase: ConfirmOtpCase;
   private readonly checkLoginStatusCase: CheckLoginStatusCase;
   private readonly logoutCase: LogoutCase;
+  private readonly loadUserStatsCase: LoadUserStatsCase;
   constructor(store: IStore) {
     this.store = store;
 
@@ -35,6 +37,7 @@ export default class AuthController {
       storageRepo
     );
     this.logoutCase = new LogoutCase(apiGateway, authRepo, storageRepo);
+    this.loadUserStatsCase = new LoadUserStatsCase(apiGateway, authRepo);
   }
 
   async registerAccount(form: IRegistrationFormModel): Promise<void> {
@@ -55,5 +58,9 @@ export default class AuthController {
 
   async logout(): Promise<void> {
     await this.logoutCase.execute();
+  }
+
+  async loadUserStats(): Promise<void> {
+    await this.loadUserStatsCase.execute();
   }
 }

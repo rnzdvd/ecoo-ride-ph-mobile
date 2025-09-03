@@ -6,11 +6,18 @@ import { Colors } from "../../colors";
 
 interface IInfoModalViewModel {
   isVisible: boolean;
+  onCloseModal: () => void;
   onButtonClicked: () => void;
 }
 
 const InfoModalView: React.FC<IInfoModalViewModel> = (props) => (
-  <Modal isVisible={props.isVisible}>
+  <Modal
+    animationIn="pulse"
+    animationOut="pulse"
+    isVisible={props.isVisible}
+    onBackdropPress={props.onCloseModal}
+    onBackButtonPress={props.onCloseModal}
+  >
     <View style={styles.container}>
       <Text style={styles.descriptionText}>
         Please Take a photo of the scooter and make sure its locked and parked

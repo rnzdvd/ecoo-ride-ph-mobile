@@ -1,5 +1,6 @@
 import { IStore } from "../../../app/store";
 import AuthUserEntity from "../../entities/auth-user.entity";
+import UserStatsEntity from "../../entities/user-stats.entity";
 
 export default class AuthPresenter {
   private readonly store: IStore;
@@ -34,5 +35,9 @@ export default class AuthPresenter {
 
   isSessionExpired(): boolean {
     return this.store.auth.isSessionExpired;
+  }
+
+  getUserStats(): UserStatsEntity {
+    return this.store.auth.userStats;
   }
 }

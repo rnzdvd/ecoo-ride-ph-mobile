@@ -1,5 +1,6 @@
 import { IStore } from "../../../app/store";
 import AuthUserEntity from "../../entities/auth-user.entity";
+import UserStatsEntity from "../../entities/user-stats.entity";
 
 export default class AuthRepository {
   private readonly store: IStore;
@@ -42,5 +43,9 @@ export default class AuthRepository {
 
   setIsSessionExpired(isSessionExpired: boolean) {
     this.store.auth.isSessionExpired = isSessionExpired;
+  }
+
+  setUserStats(userStats: UserStatsEntity) {
+    this.store.auth.userStats = userStats;
   }
 }

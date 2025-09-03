@@ -15,13 +15,19 @@ const DrawerContainer: React.FC<DrawerContentComponentProps> = (props) => {
   const controller = new AuthController(store);
   const presenter = new AuthPresenter(store);
 
+  React.useEffect(() => {
+    controller.loadUserStats();
+  }, []);
+
   return (
     <Observer>
       {() => {
         const authUser = presenter.getAuthUser();
+        const userStats = presenter.getUserStats();
         return (
           <View style={{ flex: 1 }}>
             <DrawerView
+              userStats={presenter.getUserStats()}
               isLoggedIn={presenter.isLoggedIn()}
               authUser={authUser}
               onNavigateToRegistration={() => {

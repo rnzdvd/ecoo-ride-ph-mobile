@@ -25,7 +25,6 @@ const RideView: React.FC<IRideViewModel> = (props) => {
     null
   );
 
-  console.log("rideEntity", props.rideEntity.totalDuration);
   const [loading, setLoading] = useState<boolean>(true);
   const [timer, setTimer] = useState<number>(props.rideEntity.totalDuration);
   const timerRef = useRef<number | null>(null);
@@ -94,7 +93,9 @@ const RideView: React.FC<IRideViewModel> = (props) => {
               />
             </Surface>
             <View style={styles.rideInfoTextContainer}>
-              <Text style={styles.rideInfoLabel}>0 km</Text>
+              <Text style={styles.rideInfoLabel}>
+                {props.rideEntity.totalDistance} km
+              </Text>
               <Text style={styles.rideInfoText}>Distance</Text>
             </View>
           </View>

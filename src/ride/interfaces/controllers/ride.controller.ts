@@ -4,6 +4,7 @@ import HomeRepository from "@/src/home/interfaces/gateways/home.repository";
 import { IStore } from "../../../app/store";
 import ClearCurrentRideCase from "../../usecases/clear-current-ride/clear-current-ride.case";
 import EndRideCase from "../../usecases/end-ride/end-ride.case";
+import LoadRideDistanceByIdCase from "../../usecases/load-ride-distance-by-id/load-ride-distance-by-id.case";
 import LoadRideHistoryCase from "../../usecases/load-ride-history/load-ride-history.case";
 import StartRideCase from "../../usecases/start-ride/start-ride.case";
 import RideRepository from "../gateways/ride.repository";
@@ -14,6 +15,7 @@ export default class RideController {
   private readonly endRideCase: EndRideCase;
   private readonly clearCurrentRideCase: ClearCurrentRideCase;
   private readonly loadRideHistoryCase: LoadRideHistoryCase;
+  private readonly loadRideDistanceByIdCase: LoadRideDistanceByIdCase;
 
   constructor(store: IStore) {
     this.store = store;
@@ -38,6 +40,10 @@ export default class RideController {
       rideRepo,
       homeRepo
     );
+    this.loadRideDistanceByIdCase = new LoadRideDistanceByIdCase(
+      apiGateway,
+      rideRepo
+    );
   }
 
   async startRide(): Promise<void> {
@@ -54,5 +60,9 @@ export default class RideController {
 
   async loadRideHistory(): Promise<void> {
     await this.loadRideHistoryCase.execute();
+  }
+
+  async loadRideDistanceById(): Promise<void> {
+    await this.loadRideDistanceByIdCase.execute();
   }
 }

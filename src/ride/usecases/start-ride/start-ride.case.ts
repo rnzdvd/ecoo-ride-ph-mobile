@@ -15,11 +15,14 @@ export default class StartRideCase {
   async execute(): Promise<void> {
     this.rideRepo.setIsLoading(true);
     const scooter = this.rideRepo.getScooter();
+
     const selectedOption = this.rideRepo.getSelectedOption();
 
     const response = await this.apiGateway.startRide({
       scooter_id: scooter.id.toString(),
       option: selectedOption,
+      curr_lat: scooter.lat,
+      curr_lng: scooter.lng,
     });
 
     if (codeStatusChecker(response.status_code)) {

@@ -10,6 +10,7 @@ import {
   IRideDetailsModel,
   IRideDetailsResponseModel,
   IScooterResponseModel,
+  IUserStatsResponseModel,
 } from "../api/api-models";
 import { BASE_URL, XENDIT_BASE_URL, XENDIT_PUBLIC_API_KEY } from "../config";
 
@@ -100,7 +101,12 @@ export default class ApiGateway extends Api {
     return await this.get(`api/scooter-details?id=${id}`);
   }
 
-  async startRide(data: { scooter_id: string; option: string }): Promise<{
+  async startRide(data: {
+    scooter_id: string;
+    option: string;
+    curr_lat: number;
+    curr_lng: number;
+  }): Promise<{
     status_code: number;
     data: IRideDetailsResponseModel;
   }> {
@@ -170,6 +176,22 @@ export default class ApiGateway extends Api {
     status_code: number;
   }> {
     return await this.post("api/remove-card", { id: id });
+  }
+
+  async getUserStats(): Promise<{
+    status_code: number;
+    data: IUserStatsResponseModel;
+  }> {
+    return await this.get("api/get-user-stats");
+  }
+
+  async getTotalDistanceById(id: string): Promise<{
+    status_code: number;
+    data: {
+      total_distance: number;
+    };
+  }> {
+    return await this.get(`api/get-total-distance-by-id?id=${id}`);
   }
 
   async refreshToken(accessToken: string): Promise<{

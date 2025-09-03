@@ -1,4 +1,5 @@
 import AuthUserEntity from "@/src/auth/entities/auth-user.entity";
+import UserStatsEntity from "@/src/auth/entities/user-stats.entity";
 import { Colors } from "@/src/common/colors";
 import { DrawerContentScrollView } from "@react-navigation/drawer";
 import React from "react";
@@ -9,6 +10,7 @@ import { Shadow } from "react-native-shadow-2";
 const DrawerView: React.FC<{
   isLoggedIn: boolean;
   authUser: AuthUserEntity;
+  userStats: UserStatsEntity;
   onNavigateToRegistration: () => void;
   onNavigateToBalance: () => void;
   onUserLogout: () => void;
@@ -43,7 +45,7 @@ const DrawerView: React.FC<{
             </Shadow>
             <View style={styles.totalRidesContainer}>
               <Text style={styles.rideInfoLabel}>
-                {props.authUser.totalRides}
+                {props.userStats.totalRides}
               </Text>
               <Text style={styles.rideTextLabel}>Rides</Text>
             </View>
@@ -59,7 +61,7 @@ const DrawerView: React.FC<{
             </Shadow>
             <View style={styles.totalRidesContainer}>
               <Text style={styles.rideInfoLabel}>
-                {props.authUser.totalDistance}km
+                {props.userStats.totalDistance}km
               </Text>
               <Text style={styles.rideTextLabel}>Distance</Text>
             </View>

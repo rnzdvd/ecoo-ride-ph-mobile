@@ -12,7 +12,6 @@ export default class RemoveCardCase {
     this.accountRepo.setIsLoading(true);
 
     const response = await this.apiGateway.removeCard(id.toString());
-    console.log(response);
     if (codeStatusChecker(response.status_code)) {
       const cards = this.accountRepo.getCards();
       cards.splice(

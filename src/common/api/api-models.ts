@@ -88,3 +88,8 @@ export interface ICardListResponseModel {
   last_4: string;
   expiry_date: string;
 }
+
+export interface IUserStatsResponseModel {
+  total_rides: number;
+  total_distance: number;
+}

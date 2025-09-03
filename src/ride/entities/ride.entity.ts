@@ -1,7 +1,7 @@
 import { IRideDetailsModel } from "@/src/common/api/api-models";
 import BaseApiMappedEntity from "@/src/common/entities/base-api-mapped.entity";
 import { getGapSeconds } from "@/src/common/utils";
-import { makeObservable, observable } from "mobx";
+import { action, makeObservable, observable } from "mobx";
 
 export default class RideEntity extends BaseApiMappedEntity {
   constructor() {
@@ -14,6 +14,7 @@ export default class RideEntity extends BaseApiMappedEntity {
       billedIntervals: observable,
       status: observable,
       scooterName: observable,
+      setTotalDistance: action,
     });
   }
 
@@ -47,5 +48,9 @@ export default class RideEntity extends BaseApiMappedEntity {
     if (data.scooter_name) {
       this.scooterName = data.scooter_name;
     }
+  }
+
+  setTotalDistance(totalDistance: number): void {
+    this.totalDistance = totalDistance;
   }
 }

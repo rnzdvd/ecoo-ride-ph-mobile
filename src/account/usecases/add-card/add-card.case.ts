@@ -40,7 +40,6 @@ export default class AddCardCase {
       ) {
         this.accountRepo.setIsSuccess(true);
         this.accountRepo.set3dsUrl(response.action_url);
-        console.log(response.action_url);
       } else {
         this.accountRepo.setIsSuccess(false);
       }

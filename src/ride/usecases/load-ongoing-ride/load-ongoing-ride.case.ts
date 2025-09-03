@@ -18,9 +18,7 @@ export default class LoadOngoingRideCase {
   async execute(): Promise<void> {
     const rideId = await this.storageRepo.getItem(keys.rideId);
 
-    console.log("rideId", rideId);
     if (rideId) {
-      console.log("ride id", "naa");
       this.rideRepo.setIsLoading(true);
       const response = await this.apiGateway.getRideById(rideId);
 
@@ -29,8 +27,6 @@ export default class LoadOngoingRideCase {
           this.rideRepo.setIsSuccess(true);
           const rideEntity = RideEntity.fromApiModel(response.data.ride);
           this.rideRepo.setCurrentRide(rideEntity);
-
-          console.log("rideResponse", response);
 
           const scooterResponse = await this.apiGateway.getScooterById(
             rideEntity.scooterId
@@ -41,7 +37,6 @@ export default class LoadOngoingRideCase {
               scooterResponse.data
             );
 
-            console.log("scooterResponse", scooterResponse);
             this.homeRepo.setScooter(scooterEntity);
           }
         } else {
@@ -51,8 +46,6 @@ export default class LoadOngoingRideCase {
         }
       }
       this.rideRepo.setIsLoading(false);
-    } else {
-      console.log("no ride id");
     }
   }
 }
