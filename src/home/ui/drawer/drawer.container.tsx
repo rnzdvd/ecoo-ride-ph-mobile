@@ -27,7 +27,7 @@ const DrawerContainer: React.FC<DrawerContentComponentProps> = (props) => {
         return (
           <View style={{ flex: 1 }}>
             <DrawerView
-              userStats={presenter.getUserStats()}
+              userStats={userStats}
               isLoggedIn={presenter.isLoggedIn()}
               authUser={authUser}
               onNavigateToRegistration={() => {
@@ -38,6 +38,9 @@ const DrawerContainer: React.FC<DrawerContentComponentProps> = (props) => {
               }}
               onNavigateToRideHistory={() => {
                 navigation.navigate(ScreenNames.RideHistoryScreen);
+              }}
+              onNavigateToViewProfile={() => {
+                navigation.navigate(ScreenNames.ViewProfileScreen);
               }}
               onUserLogout={() => {
                 controller.logout();

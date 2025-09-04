@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
   },
   balanceText: {
     fontWeight: "bold",
-    fontSize: 27,
+    fontSize: 24,
   },
   topUpButton: {
     margin: 20,

@@ -1,7 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { StoreContext } from "@/src/app/store";
 import AppLoaderView from "@/src/common/ui/app-loader/app-loader.view";
 import InfoModalView from "@/src/common/ui/info-modal/info-modal.view";
-import { delay, showToast } from "@/src/common/utils";
+import { showToast } from "@/src/common/utils";
 import * as ImagePicker from "expo-image-picker";
 import { Observer } from "mobx-react-lite";
 import React from "react";
@@ -35,8 +36,9 @@ const RideContainer: React.FC<{
     if (!result.canceled && result.assets && result.assets.length > 0) {
       setShowModal(false);
       const uri = result.assets[0].uri;
-      await delay(500);
-      handleEndRide(uri);
+      setTimeout(() => {
+        handleEndRide(uri);
+      }, 1000);
     }
   };
 

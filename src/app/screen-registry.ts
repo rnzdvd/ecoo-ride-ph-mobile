@@ -18,4 +18,5 @@ export const ScreenNames = {
   AddCardScreen: "AddCardScreen",
   ThreeDsAuthWebviewScreen: "ThreeDsAuthWebviewScreen",
   PaymentGatewayScreen: "PaymentGatewayScreen",
+  ViewProfileScreen: "ViewProfileScreen",
 };

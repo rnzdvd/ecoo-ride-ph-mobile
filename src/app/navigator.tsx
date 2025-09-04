@@ -18,6 +18,7 @@ import RegistrationPhaseOneScreen from "../auth/screens/registration-phase-one.s
 import RegistrationPhaseThreeScreen from "../auth/screens/registration-phase-three.screen";
 import RegistrationPhaseTwoScreen from "../auth/screens/registration-phase-two.screen";
 import SplashScreen from "../auth/screens/splash.screen";
+import ViewProfileScreen from "../auth/screens/view-profile.screen";
 import SessionContainer from "../auth/ui/session/session.container";
 import ThreeDsAuthScreen from "../common/screens/three-ds-auth.screen";
 import PushNotificationContainer from "../common/ui/push-notification/push-notification.container";
@@ -115,6 +116,11 @@ const BaseStack: React.FC = () => (
     <Stack.Screen
       name={ScreenNames.PaymentGatewayScreen}
       component={PaymentGatewayScreen}
+    />
+
+    <Stack.Screen
+      name={ScreenNames.ViewProfileScreen}
+      component={ViewProfileScreen}
     />
   </Stack.Navigator>
 );

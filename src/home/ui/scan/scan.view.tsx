@@ -5,12 +5,13 @@ import {
   CameraView,
   useCameraPermissions,
 } from "expo-camera";
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import { Dimensions, StyleSheet, View } from "react-native";
 import { Button, Text } from "react-native-paper";
 
 interface IScanViewModel {
   onScanSuccess: (data: string) => void;
+  onEnterScooterId: () => void;
 }
 
 const { width } = Dimensions.get("window");
@@ -18,10 +19,10 @@ const scanBoxSize = width * 0.6;
 
 const ScanView: React.FC<IScanViewModel> = (props) => {
   const [permission, requestPermission] = useCameraPermissions();
-  const cameraRef = useRef<CameraView>(null);
+  const cameraRef = React.useRef<CameraView>(null);
   const isFocused = useIsFocused();
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (!permission || permission.status !== "granted") {
       requestPermission();
     }
@@ -50,7 +51,6 @@ const ScanView: React.FC<IScanViewModel> = (props) => {
         />
       )}
 
-      {/* Square Guide Overlay */}
       <View style={styles.overlay}>
         <Text style={styles.descriptionText}>Scan the QR code to unlock</Text>
         <View style={styles.square} />
@@ -62,7 +62,11 @@ const ScanView: React.FC<IScanViewModel> = (props) => {
           Enter the vehicle QR code to unlock
         </Text>
 
-        <Button style={styles.enterCodeButton} mode="contained">
+        <Button
+          style={styles.enterCodeButton}
+          mode="contained"
+          onPress={props.onEnterScooterId}
+        >
           <Text style={styles.enterCodeText}>Enter Code</Text>
         </Button>
       </View>

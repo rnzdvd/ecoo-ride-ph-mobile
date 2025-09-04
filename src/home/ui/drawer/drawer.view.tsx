@@ -3,7 +3,7 @@ import UserStatsEntity from "@/src/auth/entities/user-stats.entity";
 import { Colors } from "@/src/common/colors";
 import { DrawerContentScrollView } from "@react-navigation/drawer";
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { Pressable, StyleSheet, View } from "react-native";
 import { Avatar, Button, Drawer, Icon, Text } from "react-native-paper";
 import { Shadow } from "react-native-shadow-2";
 
@@ -15,6 +15,7 @@ const DrawerView: React.FC<{
   onNavigateToBalance: () => void;
   onUserLogout: () => void;
   onNavigateToRideHistory: () => void;
+  onNavigateToViewProfile: () => void;
 }> = (props) => (
   <DrawerContentScrollView>
     {!props.isLoggedIn ? (
@@ -34,7 +35,9 @@ const DrawerView: React.FC<{
           <Avatar.Icon size={50} icon={"account"} />
           <View style={styles.profileSubContainer}>
             <Text style={styles.name}>{props.authUser.fullName}</Text>
-            <Text style={styles.viewProfileText}>View Profile</Text>
+            <Pressable onPress={props.onNavigateToViewProfile}>
+              <Text style={styles.viewProfileText}>View Profile</Text>
+            </Pressable>
           </View>
         </View>
 

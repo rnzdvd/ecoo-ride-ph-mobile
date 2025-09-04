@@ -29,7 +29,7 @@ const SplashContainer: React.FC<{
     // Set a new timeout for navigation
     timeoutId.current = setTimeout(() => {
       props.onNavigateToHome();
-    }, 1000);
+    }, 100);
   };
 
   const callPushNotifications = async (): Promise<void> => {
