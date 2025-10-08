@@ -21,6 +21,7 @@ export default class CheckLoginStatusCase {
       this.authRepo.setIsLoggedIn(true);
       const parsedUser: ILoginResponseModel = JSON.parse(storedUser);
       const authUser = AuthUserEntity.fromApiModel(parsedUser);
+
       const response = await this.apiGateway.refreshToken(authUser.accessToken);
 
       if (codeStatusChecker(response.status_code)) {

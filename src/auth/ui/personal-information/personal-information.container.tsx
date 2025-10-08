@@ -6,19 +6,20 @@ import React from "react";
 import { View } from "react-native";
 import AuthController from "../../interfaces/controllers/auth.controller";
 import AuthPresenter from "../../interfaces/presenters/auth.presenter";
-import RegistrationPhaseThreeView, {
-  IRegistrationFormModel,
-} from "./registration-phase-three.view";
+import PersonalInformationView, {
+  IPersonalInformationFormModel,
+} from "./personal-information.view";
 
-const RegistrationPhaseThreeContainer: React.FC<{
-  onNavigateToHome: () => void;
+const PersonalInformationContainer: React.FC<{
   onNavigateToHowToRide: () => void;
 }> = (props) => {
   const store = React.useContext(StoreContext);
   const controller = new AuthController(store);
   const presenter = new AuthPresenter(store);
 
-  const handleConfirm = async (form: IRegistrationFormModel): Promise<void> => {
+  const handleConfirm = async (
+    form: IPersonalInformationFormModel
+  ): Promise<void> => {
     await controller.registerAccount(form);
 
     if (presenter.isLoggedIn()) {
@@ -33,7 +34,7 @@ const RegistrationPhaseThreeContainer: React.FC<{
       {() => {
         return (
           <View style={{ flex: 1 }}>
-            <RegistrationPhaseThreeView
+            <PersonalInformationView
               onConfirm={handleConfirm}
               registeredEmail={presenter.getEmailRegistered()}
             />
@@ -44,4 +45,5 @@ const RegistrationPhaseThreeContainer: React.FC<{
     </Observer>
   );
 };
-export default RegistrationPhaseThreeContainer;
+
+export default PersonalInformationContainer;

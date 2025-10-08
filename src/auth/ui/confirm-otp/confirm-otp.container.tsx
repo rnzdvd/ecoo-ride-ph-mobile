@@ -1,24 +1,37 @@
 import { StoreContext } from "@/src/app/store";
 import AppLoaderView from "@/src/common/ui/app-loader/app-loader.view";
+import { showToast } from "@/src/common/utils";
 import { Observer } from "mobx-react-lite";
 import React from "react";
 import { View } from "react-native";
 import AuthController from "../../interfaces/controllers/auth.controller";
 import AuthPresenter from "../../interfaces/presenters/auth.presenter";
-import RegistrationPhaseOneView from "./registration-phase-one.view";
+import ConfirmOtpView from "./confirm-otp.view";
 
-const RegistrationPhaseOneContainer: React.FC<{
-  onNavigateToOtp: () => void;
+const ConfirmOtpContainer: React.FC<{
+  onNavigateToRegistration: () => void;
+  onNavigateToHome: () => void;
 }> = (props) => {
   const store = React.useContext(StoreContext);
   const presenter = new AuthPresenter(store);
   const controller = new AuthController(store);
 
-  const handleRequestOtp = async (email: string): Promise<void> => {
-    await controller.requestOtp(email);
+  const handleOtpConfirmed = async (otp: string): Promise<void> => {
+    await controller.confirmOtp(otp);
 
     if (presenter.isSuccess()) {
-      props.onNavigateToOtp();
+      if (presenter.isLoggedIn()) {
+        // navigate directly to home
+        props.onNavigateToHome();
+      } else {
+        props.onNavigateToRegistration();
+      }
+    } else {
+      showToast(
+        "OTP Confirmation Failed",
+        presenter.getErrorMessage(),
+        "error"
+      );
     }
   };
 
@@ -27,7 +40,10 @@ const RegistrationPhaseOneContainer: React.FC<{
       {() => {
         return (
           <View style={{ flex: 1 }}>
-            <RegistrationPhaseOneView onRequestOtp={handleRequestOtp} />
+            <ConfirmOtpView
+              onOtpConfirmed={handleOtpConfirmed}
+              emailRegistered={presenter.getEmailRegistered()}
+            />
             <AppLoaderView isVisible={presenter.isLoading()} />
           </View>
         );
@@ -36,4 +52,4 @@ const RegistrationPhaseOneContainer: React.FC<{
   );
 };
 
-export default RegistrationPhaseOneContainer;
+export default ConfirmOtpContainer;

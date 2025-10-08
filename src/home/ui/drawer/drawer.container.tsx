@@ -19,6 +19,15 @@ const DrawerContainer: React.FC<DrawerContentComponentProps> = (props) => {
     controller.loadUserStats();
   }, []);
 
+  const handleNavigation = (screen: string) => {
+    navigation.navigate(ScreenNames.Drawer, {
+      screen: ScreenNames.HomeStack,
+      params: {
+        screen: screen,
+      },
+    });
+  };
+
   return (
     <Observer>
       {() => {
@@ -30,21 +39,19 @@ const DrawerContainer: React.FC<DrawerContentComponentProps> = (props) => {
               userStats={userStats}
               isLoggedIn={presenter.isLoggedIn()}
               authUser={authUser}
-              onNavigateToRegistration={() => {
-                navigation.navigate(ScreenNames.RegistrationPhaseOne);
-              }}
-              onNavigateToBalance={() => {
-                navigation.navigate(ScreenNames.BalanceScreen);
-              }}
-              onNavigateToRideHistory={() => {
-                navigation.navigate(ScreenNames.RideHistoryScreen);
-              }}
-              onNavigateToViewProfile={() => {
-                navigation.navigate(ScreenNames.ViewProfileScreen);
-              }}
-              onUserLogout={() => {
-                controller.logout();
-              }}
+              onNavigateToRegistration={() =>
+                handleNavigation(ScreenNames.Registration)
+              }
+              onNavigateToBalance={() =>
+                handleNavigation(ScreenNames.BalanceScreen)
+              }
+              onNavigateToRideHistory={() =>
+                handleNavigation(ScreenNames.RideHistoryScreen)
+              }
+              onNavigateToViewProfile={() =>
+                handleNavigation(ScreenNames.ViewProfileScreen)
+              }
+              onUserLogout={() => controller.logout()}
             />
 
             <AppLoaderView isVisible={presenter.isLoading()} />

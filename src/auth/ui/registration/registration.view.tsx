@@ -3,13 +3,11 @@ import React from "react";
 import { StyleSheet, View } from "react-native";
 import { Button, Text, TextInput } from "react-native-paper";
 
-interface IRegistrationPhaseOneViewModel {
+interface IRegistrationViewModel {
   onRequestOtp: (email: string) => void;
 }
 
-const RegistrationPhaseOneView: React.FC<IRegistrationPhaseOneViewModel> = (
-  props
-) => {
+const RegistrationView: React.FC<IRegistrationViewModel> = (props) => {
   const [email, setEmail] = React.useState<string>("");
 
   return (
@@ -41,7 +39,7 @@ const RegistrationPhaseOneView: React.FC<IRegistrationPhaseOneViewModel> = (
   );
 };
 
-export default RegistrationPhaseOneView;
+export default RegistrationView;
 
 const styles = StyleSheet.create({
   container: {

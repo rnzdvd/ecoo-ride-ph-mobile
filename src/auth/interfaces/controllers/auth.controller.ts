@@ -1,7 +1,7 @@
 import ApiGateway from "@/src/common/gateways/api.gateway";
 import StorageRepository from "@/src/common/interfaces/gateways/storage.repository";
 import { IStore } from "../../../app/store";
-import { IRegistrationFormModel } from "../../ui/registration-phase-three/registration-phase-three.view";
+import { IPersonalInformationFormModel } from "../../ui/personal-information/personal-information.view";
 import CheckLoginStatusCase from "../../usecases/check-login-status/check-login-status.case";
 import ConfirmOtpCase from "../../usecases/confirm-otp/confirm-otp.case";
 import LoadUserStatsCase from "../../usecases/load-user-stats/load-user-stats.case";
@@ -40,7 +40,7 @@ export default class AuthController {
     this.loadUserStatsCase = new LoadUserStatsCase(apiGateway, authRepo);
   }
 
-  async registerAccount(form: IRegistrationFormModel): Promise<void> {
+  async registerAccount(form: IPersonalInformationFormModel): Promise<void> {
     await this.registerAccountCase.execute(form);
   }
 

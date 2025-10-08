@@ -6,21 +6,21 @@ import { ScrollView } from "react-native-gesture-handler";
 import { Avatar, Button, Text, TextInput } from "react-native-paper";
 import * as Yup from "yup";
 
-export interface IRegistrationFormModel {
+export interface IPersonalInformationFormModel {
   email: string;
   full_name: string;
   phone_number: string;
 }
 
-interface IRegistrationPhaseThreeViewModel {
-  onConfirm: (form: IRegistrationFormModel) => void;
+interface IPersonalInformationViewModel {
+  onConfirm: (form: IPersonalInformationFormModel) => void;
   registeredEmail: string;
 }
 
-const RegistrationPhaseThreeView: React.FC<IRegistrationPhaseThreeViewModel> = (
+const PersonalInformationView: React.FC<IPersonalInformationViewModel> = (
   props
 ) => {
-  const formvalue: IRegistrationFormModel = {
+  const formvalue: IPersonalInformationFormModel = {
     email: props.registeredEmail,
     full_name: "",
     phone_number: "",
@@ -103,7 +103,7 @@ const Schema = Yup.object().shape({
   phone_number: Yup.string().required(),
 });
 
-export default RegistrationPhaseThreeView;
+export default PersonalInformationView;
 
 const styles = StyleSheet.create({
   container: {

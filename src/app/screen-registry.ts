@@ -7,9 +7,9 @@ export const ScreenNames = {
   ScanScreen: "ScanScreen",
   RideInstructionsScreen: "RideInstructionsScreen",
   RideScreen: "RideScreen",
-  RegistrationPhaseOne: "RegistrationPhaseOneScreen",
-  RegistrationPhaseTwo: "RegistrationPhaseTwoScreen",
-  RegistrationPhaseThree: "RegistrationPhaseThreeScreen",
+  Registration: "RegistrationScreen",
+  ConfirmOtp: "ConfirmOtpScreen",
+  PersonalInformation: "PersonalInformationScreen",
   BalanceScreen: "BalanceScreen",
   TopUpScreen: "TopUpScreen",
   HowToRideScreen: "HowToRideScreen",
@@ -19,4 +19,5 @@ export const ScreenNames = {
   ThreeDsAuthWebviewScreen: "ThreeDsAuthWebviewScreen",
   PaymentGatewayScreen: "PaymentGatewayScreen",
   ViewProfileScreen: "ViewProfileScreen",
+  HomeStack: "HomeStack",
 };

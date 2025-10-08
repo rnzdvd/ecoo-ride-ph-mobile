@@ -5,7 +5,7 @@ import { registerForPushNotificationsAsync } from "@/src/common/notification-ser
 import { codeStatusChecker } from "@/src/common/utils";
 import AuthUserEntity from "../../entities/auth-user.entity";
 import AuthRepository from "../../interfaces/gateways/auth.repository";
-import { IRegistrationFormModel } from "../../ui/registration-phase-three/registration-phase-three.view";
+import { IPersonalInformationFormModel } from "../../ui/personal-information/personal-information.view";
 
 export default class RegisterAccountCase {
   constructor(
@@ -14,7 +14,7 @@ export default class RegisterAccountCase {
     private readonly storageRepo: StorageRepository
   ) {}
 
-  async execute(form: IRegistrationFormModel): Promise<void> {
+  async execute(form: IPersonalInformationFormModel): Promise<void> {
     this.authRepo.setIsLoading(true);
 
     const response = await this.apiGateway.registerUser(form);

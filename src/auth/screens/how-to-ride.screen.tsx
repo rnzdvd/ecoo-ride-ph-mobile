@@ -12,7 +12,7 @@ const HowToRideScreen: React.FC<IScreenContainer> = ({ navigation }) => {
       statusBarBg="white"
     >
       <HowToRideContainer
-        onNavigateToHome={() => navigation.navigate(ScreenNames.Drawer)}
+        onNavigateToHome={() => navigation.navigate(ScreenNames.HomeScreen)}
       />
     </AppScreen>
   );

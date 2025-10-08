@@ -16,9 +16,7 @@ const HomeScreen: React.FC<IScreenContainer> = ({ navigation }) => {
       <HomeContainer
         onOpenDrawer={() => navigation.dispatch(DrawerActions.openDrawer())}
         onScanQR={() => navigation.navigate(ScreenNames.ScanScreen)}
-        onGetStarted={() =>
-          navigation.navigate(ScreenNames.RegistrationPhaseOne)
-        }
+        onGetStarted={() => navigation.navigate(ScreenNames.Registration)}
         onNavigateToRide={() => navigation.navigate(ScreenNames.RideScreen)}
       />
     </AppScreen>

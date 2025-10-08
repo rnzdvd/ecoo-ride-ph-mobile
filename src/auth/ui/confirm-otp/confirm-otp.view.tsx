@@ -4,14 +4,12 @@ import React from "react";
 import { StyleSheet, View } from "react-native";
 import { Button, Text, TextInput } from "react-native-paper";
 
-interface IRegistrationPhaseTwoViewModel {
+interface IConfirmOtpViewModel {
   onOtpConfirmed: (otp: string) => void;
   emailRegistered: string;
 }
 
-const RegistrationPhaseTwoView: React.FC<IRegistrationPhaseTwoViewModel> = (
-  props
-) => {
+const ConfirmOtpView: React.FC<IConfirmOtpViewModel> = (props) => {
   const [otp, setOtp] = React.useState<string>("");
   const [secondsRemaining, setSecondsRemaining] = React.useState<number>(300);
 
@@ -69,7 +67,7 @@ const RegistrationPhaseTwoView: React.FC<IRegistrationPhaseTwoViewModel> = (
   );
 };
 
-export default RegistrationPhaseTwoView;
+export default ConfirmOtpView;
 
 const styles = StyleSheet.create({
   container: {
