@@ -14,7 +14,7 @@ export default class LoadScooterDetailsCase {
 
     const scannedQR = this.homeRepo.getScannedQRValue();
 
-    const response = await this.apiGateway.getScooterById("2");
+    const response = await this.apiGateway.getScooterById(scannedQR);
 
     if (codeStatusChecker(response.status_code)) {
       const scooterEntity = ScooterEntity.fromApiModel(response.data);
